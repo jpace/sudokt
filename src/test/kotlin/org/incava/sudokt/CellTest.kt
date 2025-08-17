@@ -1,6 +1,5 @@
 package org.incava.sudokt
 
-import org.incava.io.Qlog
 import org.junit.jupiter.api.assertAll
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -11,12 +10,8 @@ class CellTest {
     fun init() {
         val obj = Cell(4)
         assertNull(obj.number())
-        assertEquals((1..9).toSet(), obj.possible)
-        obj.removePossible(3)
-        assertEquals((1..9).toSet() - 3, obj.possible)
         obj.setNumber(7)
         assertEquals(7, obj.number())
-        assertEquals(setOf(7), obj.possible)
     }
 
     @Test
@@ -55,12 +50,6 @@ class CellTest {
     @Test
     fun all() {
         val cells = (0..80).map { Cell(it) }
-        cells.forEach { runTest(it) }
-    }
-
-    @Test
-    fun show() {
-        val cells = (0..80).map { Cell(it) }
         (0..8).forEach { row ->
             (0..8).forEach { col ->
                 val id = row * 9 + col
@@ -74,13 +63,5 @@ class CellTest {
                 )
             }
         }
-    }
-
-    fun runTest(cell: Cell) {
-        Qlog.info("id", cell.id)
-        Qlog.info("row", cell.row())
-        Qlog.info("column", cell.column())
-        Qlog.info("box", cell.box())
-        println()
     }
 }

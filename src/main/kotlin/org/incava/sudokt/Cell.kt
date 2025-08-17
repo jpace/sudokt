@@ -1,19 +1,19 @@
 package org.incava.sudokt
 
 class Cell(val id: Int) {
-    val possible: MutableSet<Int> = (1..9).toMutableSet()
+    var number: Int? = null
+    var possible = mutableSetOf<Int>()
 
     fun removePossible(num: Int) {
         possible.remove(num)
     }
 
     fun number(): Int? {
-        return if (possible.size == 1) possible.first() else null
+        return number
     }
 
     fun setNumber(num: Int) {
-        possible.clear()
-        possible += num
+        number = num
     }
 
     fun row() = id / 9
@@ -24,5 +24,13 @@ class Cell(val id: Int) {
         val x = column() / 3
         val y = row() / 3
         return x + y * 3
+    }
+
+    override fun toString(): String {
+        return "Cell(id=$id, possible=$possible, number=${number()}, row=${row()}, column=${column()}, box=${box()})"
+    }
+
+    fun updatePossible(possible: MutableSet<Int>) {
+        this.possible = possible
     }
 }
