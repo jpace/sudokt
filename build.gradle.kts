@@ -31,10 +31,19 @@ dependencies {
     // Use the Kotlin JUnit integration.
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
 }
 
 application {
     // Define the main class for the application.
     mainClassName = "org.incava.sudokt.AppKt"
+}
+
+tasks.jar {
+    manifest{
+        attributes["Main-Class"] = "org.incava.sudokt.AppKt"
+    }
+    configurations["compileClasspath"].forEach { file: File ->
+        from(zipTree(file.absolutePath))
+    }
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
