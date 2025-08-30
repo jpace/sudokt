@@ -1,6 +1,10 @@
 package org.incava.sudokt
 
 import org.incava.io.Qlog
+import org.incava.sudokt.rules.RuleApplyNumberToGroups
+import org.incava.sudokt.rules.RuleInferPossible
+import org.incava.sudokt.rules.RuleSinglePossible
+import org.incava.sudokt.view.PuzzleView
 import kotlin.test.Test
 
 class PuzzleTest {
@@ -24,11 +28,7 @@ class PuzzleTest {
 
         obj.setCell(1, 7, 2)
 
-        obj.setCell(2, 3, 3)
-        obj.setCell(2, 4, 9)
-        obj.setCell(2, 5, 5)
-
-        obj.setCell(2, 6, 8)
+        obj.setCells(2, mapOf(3 to 3, 4 to 9, 5 to 5, 6 to 8))
 
         obj.setCells(3, listOf(null, null, 5, null, 6, 7, 3, 1, null))
         obj.setCells(4, listOf(null, 9, 8, null, null, null, 6, null, null))
@@ -41,7 +41,7 @@ class PuzzleTest {
         view.show()
 
         val infer = RuleInferPossible(obj.cells)
-        infer.run()
+        infer.execute()
         view.show()
 
         val rule1 = RuleApplyNumberToGroups(obj.cells)
@@ -53,12 +53,12 @@ class PuzzleTest {
                 Qlog.info("iteration", iteration)
                 return
             }
-            rule1.run()
+            rule1.execute()
             Qlog.info("rule1", rule1)
             Qlog.info("rule1.updated?", rule1.updated)
             view.show()
 
-            rule2.run()
+            rule2.execute()
             Qlog.info("rule2", rule2)
             Qlog.info("rule2.updated?", rule2.updated)
             view.show()
