@@ -9,6 +9,10 @@ class Cell(val id: Int) {
         possible.remove(num)
     }
 
+    fun removePossible(numbers: Set<Int>) {
+        possible.removeAll(numbers)
+    }
+
     fun number(): Int? {
         return number
     }

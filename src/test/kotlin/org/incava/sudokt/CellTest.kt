@@ -19,8 +19,10 @@ class CellTest {
     @Test
     fun position() {
         assertAll(
-            { assertEquals(0, newInstance(0).position.id) },
-            { assertEquals(4, newInstance(4).position.id) }
+            { assertEquals(0, newInstance(0).position.column) },
+            { assertEquals(0, newInstance(0).position.row) },
+            { assertEquals(4, newInstance(4).position.column) },
+            { assertEquals(0, newInstance(4).position.row) }
         )
     }
 }

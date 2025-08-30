@@ -14,7 +14,7 @@ class RuleApplyNumberToGroups(cells: List<Cell>) : Rule(Cells(cells)) {
     }
 
     override fun run() {
-        val indices = (0 until cells.ids())
+        val indices = (0 until cells.size)
         indices.forEach { index ->
             val cell = cells.at(index)
             indices

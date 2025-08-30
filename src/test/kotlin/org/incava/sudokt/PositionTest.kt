@@ -47,12 +47,11 @@ class PositionTest {
             (0..8).forEach { col ->
                 val id = row * 9 + col
                 val box = (row / 3) * 3 + col / 3
-                val cell = positions[id]
+                val position = positions[id]
                 assertAll(
-                    { assertEquals(id, cell.id) },
-                    { assertEquals(row, cell.row) },
-                    { assertEquals(col, cell.column) },
-                    { assertEquals(box, cell.box) }
+                    { assertEquals(row, position.row) },
+                    { assertEquals(col, position.column) },
+                    { assertEquals(box, position.box) }
                 )
             }
         }
