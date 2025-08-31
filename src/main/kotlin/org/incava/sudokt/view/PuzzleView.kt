@@ -11,7 +11,11 @@ class PuzzleView(val puzzle: Puzzle, val showId: Boolean, val showNumber: Boolea
     private val rowWidth = if (showPossible) 12 else 8
 
     fun show() {
-        val header = (0 until numColumns).map { it.toString() }
+        show(emptyList())
+    }
+
+    fun show(highlight: List<Cell>) {
+        val header = (0 until numColumns).map { it.toString() to false }
         printRow("", "", header)
         (0 until numRows).forEach { row ->
             if (row % 3 == 0) {
@@ -20,13 +24,13 @@ class PuzzleView(val puzzle: Puzzle, val showId: Boolean, val showNumber: Boolea
                 printBreak("", '-')
             }
             if (showId) {
-                printCells(row, "id") { it.id }
+                printCells(highlight, row, "id") { it.id }
             }
             if (showNumber) {
-                printCells(row, "number") { it.number() ?: "" }
+                printCells(highlight, row, "number") { it.number() ?: "" }
             }
             if (showPossible) {
-                printCells(row, "possible") { formatPossible(it) }
+                printCells(highlight, row, "possible") { formatPossible(it) }
             }
         }
         printBreak("", '=')
@@ -43,22 +47,29 @@ class PuzzleView(val puzzle: Puzzle, val showId: Boolean, val showNumber: Boolea
 
     fun printBreak(row: Any, char: Char) {
         val str = char.toString().repeat(64)
-        val strings = (0 until numColumns).map { str }
+        val strings = (0 until numColumns).map { str to false }
         printRow(row, "", strings)
     }
 
-    fun printRow(row: Any, message: String, strings: List<String>) {
+    fun printRow(row: Any, message: String, strings: List<Pair<String, Boolean>>) {
         System.out.printf(" %3.3s %-12.12s", row, message)
-        val formatted = strings.map { String.format("%-$rowWidth.${rowWidth}s", it) }
-        val boxed = listOf(0, 3, 6).joinToString(" || ") { formatted.subList(it, it + 3).joinToString(" | ") }
-        println(" || $boxed ||")
+        val formatted = strings.map { (str, highlight) ->
+            if (highlight) {
+                val width = rowWidth - 4
+                String.format(">  %-$width.${width}s  <", str)
+            } else {
+                String.format(" %-$rowWidth.${rowWidth}s ", str)
+            }
+        }
+        val boxed = listOf(0, 3, 6).joinToString("||") { formatted.subList(it, it + 3).joinToString("|") }
+        println("||$boxed||")
     }
 
-    fun printCells(row: Int, message: String, supplier: (Cell) -> Any?) {
+    fun printCells(highlight: List<Cell>, row: Int, message: String, supplier: (Cell) -> Any?) {
         val strings = (0 until numColumns).map { col ->
             val id = Util.rowColumnToId(row, col)
             val cell = cells[id]
-            supplier(cell).toString()
+            supplier(cell).toString() to (highlight.isNotEmpty() && highlight.contains(cell))
         }
         printRow(row, message, strings)
     }

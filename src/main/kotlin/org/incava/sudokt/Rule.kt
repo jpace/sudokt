@@ -3,10 +3,10 @@ package org.incava.sudokt
 abstract class Rule(open val cells: Cells) {
     var updated = false
 
-    abstract fun run()
+    abstract fun run() : List<Cell>
 
-    fun execute() {
+    fun execute() : List<Cell> {
         updated = false
-        run()
+        return run()
     }
 }

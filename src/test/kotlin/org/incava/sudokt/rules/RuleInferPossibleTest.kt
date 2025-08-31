@@ -2,20 +2,24 @@ package org.incava.sudokt.rules
 
 import org.junit.jupiter.api.assertAll
 import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNull
 
 class RuleInferPossibleTest : RuleTestBase() {
     @Test
     fun run() {
         assertAll(
-            { assertPossible(none, 0 to 11) },
+            { assertNull(cells[0, 0].number) },
+            { assertPossible(none, 0 to 0) },
+            { assertEquals(8, cells[0, 1].number) },
             { assertPossible(none, 0 to 1) }
         )
         val obj = RuleInferPossible(cells)
-        obj.checkCell(0 to 0)
-        obj.checkCell(0 to 1)
+        obj.checkCell(cells[0, 0])
+        obj.checkCell(cells[0, 1])
         assertAll(
-            { assertPossible(none, 0 to 0) },
-            { assertPossible(all, 0 to 1) }
+            { assertPossible(all, 0 to 0) },
+            { assertPossible(none, 0 to 1) }
         )
     }
 }

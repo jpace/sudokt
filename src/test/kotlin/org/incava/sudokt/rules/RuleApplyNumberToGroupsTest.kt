@@ -88,8 +88,9 @@ class RuleApplyNumberToGroupsTest : RuleTestBase() {
             { assertPossible(none, 2 to 5) }
         )
         val obj = RuleApplyNumberToGroups(cells)
-        obj.checkBox(1)
-        view.show()
+        val updated = obj.checkBox(1)
+        Qlog.info("updated", updated.distinct())
+        view.show(updated.distinct())
         val valid = setOf(1, 2, 4, 7)
         assertAll(
             { assertPossible(valid, 0 to 3) },

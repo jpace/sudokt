@@ -1,5 +1,7 @@
 package org.incava.sudokt.rules
 
+import org.incava.io.Qlog
+import org.incava.sudokt.view.PuzzleView
 import org.junit.jupiter.api.assertAll
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -15,6 +17,8 @@ class RuleTwoPairsTest : RuleTestBase() {
 
     @Test
     fun checkRow() {
+        val view = PuzzleView(puzzle = puzzle, showId = false, showNumber = true, showPossible = true)
+        view.show()
         val obj = RuleTwoPairs(cells)
         val row = 7
         assertAll(
@@ -28,7 +32,10 @@ class RuleTwoPairsTest : RuleTestBase() {
             { assertPossible(setOf(4, 7), row, 7) },
             { assertPossible(setOf(), row, 8) }
         )
-        obj.checkRow(row)
+
+        val updated = obj.checkRow(row)
+        Qlog.info("updated", updated.distinct())
+        view.show(updated.distinct())
         assertAll(
             { assertPossible(setOf(), row, 0) },
             { assertPossible(setOf(1, 5), row, 1) },
