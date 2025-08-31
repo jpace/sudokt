@@ -10,17 +10,18 @@ import kotlin.test.Test
 
 class PuzzleTest {
     @Test
-    fun show() {
-        val obj = TestFixture.puzzle1
+    fun solve() {
+        val obj = TestFixture.createPuzzle2()
         val view = PuzzleView(puzzle = obj, showId = false, showNumber = true, showPossible = true)
         view.show()
 
-        val infer = RuleInferPossible(obj.cells)
+        val cells = Cells(obj.cells)
+        val infer = RuleInferPossible(cells)
         infer.execute()
         view.show()
 
-        val rule1 = RuleApplyNumberToGroups(obj.cells)
-        val rule2 = RuleSinglePossible(obj.cells)
+        val rule1 = RuleApplyNumberToGroups(cells)
+        val rule2 = RuleSinglePossible(cells)
 
         repeat(100) { iteration ->
             if (obj.isSolved()) {

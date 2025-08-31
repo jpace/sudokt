@@ -1,13 +1,11 @@
 package org.incava.sudokt.rules
 
-import org.incava.sudokt.Cell
 import org.incava.sudokt.Cells
 import org.incava.sudokt.Rule
 
-class RuleSinglePossible(cells: List<Cell>) : Rule(Cells(cells)) {
+class RuleSinglePossible(cells: Cells) : Rule(cells) {
     override fun run() {
-        cells.cells
-            .filter { it.number == null && it.possible.size == 1 }
+        cells.filter { it.number == null && it.possible.size == 1 }
             .forEach {
                 val number = it.possible.first()
                 it.setNumber(number)

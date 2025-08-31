@@ -4,7 +4,7 @@ import org.incava.sudokt.Cell
 import org.incava.sudokt.Cells
 import org.incava.sudokt.Rule
 
-class RuleApplyNumberToGroups(cells: List<Cell>) : Rule(Cells(cells)) {
+class RuleApplyNumberToGroups(cells: Cells) : Rule(cells) {
     private fun checkMatch(x: Cell, index: Int, supplier: (Cell) -> Int) {
         val other = cells.at(index)
         if (supplier(x) == supplier(other) && other.possible.contains(x.number)) {
@@ -33,4 +33,26 @@ class RuleApplyNumberToGroups(cells: List<Cell>) : Rule(Cells(cells)) {
     """.trimIndent()
 
     fun level() = 3
+    fun checkRow(row: Int) {
+        val unitCells = cells.inRow(row)
+        checkUnitCells(unitCells)
+    }
+
+    fun checkColumn(column: Int) {
+        val unitCells = cells.inColumn(column)
+        checkUnitCells(unitCells)
+    }
+
+    fun checkBox(box: Int) {
+        val unitCells = cells.inBox(box)
+        checkUnitCells(unitCells)
+    }
+
+    fun checkUnitCells(unitCells: List<Cell>) {
+        unitCells.subList(0, cells.unitSize).forEach { a ->
+            if (a.number != null) {
+                (unitCells - a).forEach { it.removePossible(a.number!!) }
+            }
+        }
+    }
 }

@@ -4,10 +4,9 @@ import org.incava.sudokt.Cell
 import org.incava.sudokt.Cells
 import org.incava.sudokt.Rule
 
-class RuleInferPossible(cells: List<Cell>) : Rule(Cells(cells)) {
+class RuleInferPossible(cells: Cells) : Rule(cells) {
     override fun run() {
-        cells.cells
-            .filter { it.number == null }
+        cells.filter { it.number == null }
             .forEach { cell ->
                 val possible = (1..9).toMutableSet()
                 cell.updatePossible(possible)
@@ -19,4 +18,17 @@ class RuleInferPossible(cells: List<Cell>) : Rule(Cells(cells)) {
     """.trimIndent()
 
     fun level() = 1
+
+    fun checkCell(position: Pair<Int, Int>) {
+        val (row, column) = position
+        val cell = cells.at(row, column)
+        checkCell(cell)
+    }
+
+    fun checkCell(cell: Cell) {
+        if (cell.number != null) {
+            val possible = (1..9).toMutableSet()
+            cell.updatePossible(possible)
+        }
+    }
 }

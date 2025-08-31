@@ -25,7 +25,6 @@ class RuleTwoPairs(cells: Cells) : Rule(cells) {
             unitCells.subList(index + 1, cells.unitSize).forEach { b ->
                 checkCells(a, b, unitCells)
             }
-            println()
         }
     }
 
@@ -42,7 +41,7 @@ class RuleTwoPairs(cells: Cells) : Rule(cells) {
 
     fun checkCells(a: Cell, b: Cell, unitCells: List<Cell>) {
         if (a.possible.isNotEmpty() && a.possible == b.possible) {
-            unitCells.filter { cell -> cell.id != a.id && cell.id != b.id }
+            (unitCells - a - b)
                 .forEach { it.removePossible(a.possible) }
         }
     }

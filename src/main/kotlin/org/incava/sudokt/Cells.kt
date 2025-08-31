@@ -7,15 +7,18 @@ class Cells(val cells: List<Cell>) {
     fun at(row: Int, column: Int) = cells.first { it.position == positionOf(row, column) }
     fun at(id: Int) = cells[id]
     fun inRow(row: Int): List<Cell> {
-        return filterCells(row) { it.row }
+        return filter { it.position.row == row }
     }
+
     fun inColumn(column: Int): List<Cell> {
-        return filterCells(column) { it.column }
+        return filter { it.position.column == column }
     }
+
     fun inBox(box: Int): List<Cell> {
-        return filterCells(box) { it.box }
+        return filter { it.position.box == box }
     }
-    fun filterCells(value: Int, accessor: (Position) -> Int): List<Cell> {
-        return cells.filter { accessor(it.position) == value }
+
+    fun filter(block: (Cell) -> Boolean): List<Cell> {
+        return cells.filter(block)
     }
 }
