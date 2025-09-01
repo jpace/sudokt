@@ -1,9 +1,12 @@
 package org.incava.sudokt.test
 
+import org.incava.sudokt.Cells
 import org.incava.sudokt.Puzzle
+import org.junit.jupiter.api.assertAll
+import kotlin.test.assertEquals
 
 object TestFixture {
-    fun createPuzzle2() : Puzzle {
+    fun createPuzzle2(): Puzzle {
         val puzzle = Puzzle()
         puzzle.let {
             it.setCells(0, mapOf(1 to 8, 2 to 1, 5 to 6, 6 to 7, 8 to 5))
@@ -18,5 +21,21 @@ object TestFixture {
             it.setCells(8, listOf(2, 7, null, 1))
         }
         return puzzle
+    }
+
+    fun checkPuzzle(puzzle: Puzzle) {
+        val cells = Cells(puzzle.cells)
+        assertAll(
+            { assertEquals(81, cells.size) },
+            { assertEquals(listOf(null, 8, 1, null, null, 6, 7, null, 5), cells.inRow(0).map { it.number }) },
+            { assertEquals(listOf(5, 6, 3, 8, null, null, null, 2, null), cells.inRow(1).map { it.number }) },
+            { assertEquals(listOf(null, null, null, 3, 9, 5, 8, null, null), cells.inRow(2).map { it.number }) },
+            { assertEquals(listOf(null, null, 5, null, 6, 7, 3, 1, null), cells.inRow(3).map { it.number }) },
+            { assertEquals(listOf(null, 9, 8, null, null, null, 6, null, null), cells.inRow(4).map { it.number }) },
+            { assertEquals(listOf(null, null, null, 5, 1, 8, null, null, null), cells.inRow(5).map { it.number }) },
+            { assertEquals(listOf(8, null, 6, null, 2, null, 5, 9, 3), cells.inRow(6).map { it.number }) },
+            { assertEquals(listOf(3, null, null, 6, 8, null, null, null, 2), cells.inRow(7).map { it.number }) },
+            { assertEquals(listOf(2, 7, null, 1, null, null, null, null, null), cells.inRow(8).map { it.number }) },
+        )
     }
 }

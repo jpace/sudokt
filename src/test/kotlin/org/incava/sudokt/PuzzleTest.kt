@@ -1,7 +1,7 @@
 package org.incava.sudokt
 
 import org.incava.io.Qlog
-import org.incava.sudokt.rules.RuleApplyNumberToGroups
+import org.incava.sudokt.rules.RuleRemoveNumberFromPossiblesInUnit
 import org.incava.sudokt.rules.RuleInferPossible
 import org.incava.sudokt.rules.RuleSinglePossible
 import org.incava.sudokt.test.TestFixture
@@ -20,7 +20,7 @@ class PuzzleTest {
         infer.execute()
         view.show()
 
-        val rule1 = RuleApplyNumberToGroups(cells)
+        val rule1 = RuleRemoveNumberFromPossiblesInUnit(cells)
         val rule2 = RuleSinglePossible(cells)
 
         repeat(100) { iteration ->
@@ -41,5 +41,11 @@ class PuzzleTest {
         }
 
         Qlog.info("puzzle.solved?", obj.isSolved())
+    }
+
+    @Test
+    fun init() {
+        val obj = TestFixture.createPuzzle2()
+        TestFixture.checkPuzzle(obj)
     }
 }

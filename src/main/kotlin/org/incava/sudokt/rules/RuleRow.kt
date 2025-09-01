@@ -3,11 +3,12 @@ package org.incava.sudokt.rules
 import org.incava.sudokt.Cell
 import org.incava.sudokt.Cells
 import org.incava.sudokt.Rule
+import org.incava.sudokt.impl.PuzzleData
 
 abstract class RuleRow(cells: Cells) : Rule(cells) {
     override fun run(): List<Cell> {
         val updated = mutableListOf<Cell>()
-        (0..8).forEach { updated += checkRow(it) }
+        PuzzleData.cellIndices.forEach { updated += checkRow(it) }
         return updated
     }
 

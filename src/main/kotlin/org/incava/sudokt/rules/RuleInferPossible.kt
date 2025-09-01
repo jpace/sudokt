@@ -2,6 +2,7 @@ package org.incava.sudokt.rules
 
 import org.incava.sudokt.Cell
 import org.incava.sudokt.Cells
+import org.incava.sudokt.impl.PuzzleData
 
 class RuleInferPossible(cells: Cells) : RuleRow(cells) {
     fun description() = """
@@ -9,12 +10,11 @@ class RuleInferPossible(cells: Cells) : RuleRow(cells) {
     """.trimIndent()
 
     override fun checkCell(cell: Cell): Boolean {
-        if (cell.number == null) {
-            val possible = (1..9).toMutableSet()
-            cell.updatePossible(possible)
-            return true
+        return if (cell.number == null) {
+            cell.setPossibles(PuzzleData.numbers)
+            true
         } else {
-            return false
+            false
         }
     }
 }

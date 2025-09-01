@@ -10,8 +10,9 @@ class Rules {
         byLevel = listOf(
             ::RuleInferPossible,
             ::RuleSinglePossible,
-            ::RuleApplyNumberToGroups,
-            ::RuleTwoPairs
+            ::RuleRemoveNumberFromPossiblesInUnit,
+            ::RuleNakedPairs,
+            ::RuleHiddenPairs
         )
     }
 }

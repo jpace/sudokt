@@ -6,7 +6,7 @@ import org.junit.jupiter.api.assertAll
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 
-class RuleApplyNumberToGroupsTest : RuleTestBase() {
+class RuleRemoveNumberFromPossiblesInUnitTest : RuleTestBase() {
     @BeforeTest
     fun setup2() {
         Qlog.info("running setup2")
@@ -27,7 +27,7 @@ class RuleApplyNumberToGroupsTest : RuleTestBase() {
             { assertPossible(all, 4 to 7) },
             { assertPossible(all, 4 to 8) }
         )
-        val obj = RuleApplyNumberToGroups(cells)
+        val obj = RuleRemoveNumberFromPossiblesInUnit(cells)
         obj.checkRow(4)
         val valid = (1..5).toSet() + 7
         assertAll(
@@ -56,7 +56,7 @@ class RuleApplyNumberToGroupsTest : RuleTestBase() {
             { assertPossible(all, 7 to 1) },
             { assertPossible(none, 8 to 1) }
         )
-        val obj = RuleApplyNumberToGroups(cells)
+        val obj = RuleRemoveNumberFromPossiblesInUnit(cells)
         obj.checkColumn(1)
         val valid = (1..5).toSet()
         assertAll(
@@ -87,7 +87,7 @@ class RuleApplyNumberToGroupsTest : RuleTestBase() {
             { assertPossible(none, 2 to 4) },
             { assertPossible(none, 2 to 5) }
         )
-        val obj = RuleApplyNumberToGroups(cells)
+        val obj = RuleRemoveNumberFromPossiblesInUnit(cells)
         val updated = obj.checkBox(1)
         Qlog.info("updated", updated.distinct())
         view.show(updated.distinct())

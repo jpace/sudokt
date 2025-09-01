@@ -2,8 +2,9 @@ package org.incava.sudokt.rules
 
 import org.incava.sudokt.Cell
 import org.incava.sudokt.Cells
+import org.incava.sudokt.impl.PuzzleData
 
-class RuleApplyNumberToGroups(cells: Cells) : RuleAllUnits(cells) {
+class RuleRemoveNumberFromPossiblesInUnit(cells: Cells) : RuleAllUnits(cells) {
     override fun run() = checkAllUnits()
 
     fun description() = """
@@ -12,13 +13,12 @@ class RuleApplyNumberToGroups(cells: Cells) : RuleAllUnits(cells) {
 
     override fun checkUnitCells(unitCells: List<Cell>): List<Cell> {
         val updated = mutableListOf<Cell>()
-        unitCells.subList(0, cells.unitSize).forEach { a ->
+        unitCells.subList(0, PuzzleData.unitSize).forEach { a ->
             if (a.number != null) {
                 // not sure why IJ/Kotlin can't infer from null (Int? -> Int)
                 val num = a.number!!
                 (unitCells - a).forEach {
-                    if (it.possible.contains(num)) {
-                        it.removePossible(num)
+                    if (it.removePossible(num)) {
                         updated += it
                     }
                 }

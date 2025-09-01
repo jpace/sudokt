@@ -6,12 +6,12 @@ import org.junit.jupiter.api.assertAll
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 
-class RuleTwoPairsTest : RuleTestBase() {
+class RuleNakedPairsTest : RuleTestBase() {
     @BeforeTest
     fun setup2() {
         val infer = RuleInferPossible(cells)
         infer.execute()
-        val rule1 = RuleApplyNumberToGroups(cells)
+        val rule1 = RuleRemoveNumberFromPossiblesInUnit(cells)
         rule1.execute()
     }
 
@@ -19,7 +19,7 @@ class RuleTwoPairsTest : RuleTestBase() {
     fun checkRow() {
         val view = PuzzleView(puzzle = puzzle, showId = false, showNumber = true, showPossible = true)
         view.show()
-        val obj = RuleTwoPairs(cells)
+        val obj = RuleNakedPairs(cells)
         val row = 7
         assertAll(
             { assertPossible(setOf(), row, 0) },
@@ -51,7 +51,7 @@ class RuleTwoPairsTest : RuleTestBase() {
 
     @Test
     fun checkColumn() {
-        val obj = RuleTwoPairs(cells)
+        val obj = RuleNakedPairs(cells)
         val column = 1
         assertAll(
             { assertPossible(setOf(), 0, column) },
@@ -80,7 +80,7 @@ class RuleTwoPairsTest : RuleTestBase() {
 
     @Test
     fun checkBox() {
-        val obj = RuleTwoPairs(cells)
+        val obj = RuleNakedPairs(cells)
         val box = 5
         assertAll(
             { assertPossible(emptySet(), 3, 6) },

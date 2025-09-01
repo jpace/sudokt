@@ -3,14 +3,14 @@ package org.incava.sudokt.rules
 import org.incava.sudokt.Cell
 import org.incava.sudokt.Cells
 import org.incava.sudokt.Rule
+import org.incava.sudokt.impl.PuzzleData
 
 abstract class RuleAllUnits(cells: Cells) : Rule(cells) {
     fun checkAllUnits(): List<Cell> {
         val updated = mutableListOf<Cell>()
-        val units = (0..8)
-        units.forEach { updated += checkRow(it) }
-        units.forEach { updated += checkColumn(it) }
-        units.forEach { updated += checkBox(it) }
+        PuzzleData.cellIndices.forEach { updated += checkRow(it) }
+        PuzzleData.cellIndices.forEach { updated += checkColumn(it) }
+        PuzzleData.cellIndices.forEach { updated += checkBox(it) }
         return updated
     }
 
