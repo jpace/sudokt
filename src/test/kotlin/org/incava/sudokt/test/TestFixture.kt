@@ -1,7 +1,9 @@
 package org.incava.sudokt.test
 
+import org.incava.sudokt.Cell
 import org.incava.sudokt.Cells
 import org.incava.sudokt.Puzzle
+import org.incava.sudokt.impl.PuzzleData
 import org.junit.jupiter.api.assertAll
 import kotlin.test.assertEquals
 
@@ -37,5 +39,38 @@ object TestFixture {
             { assertEquals(listOf(3, null, null, 6, 8, null, null, null, 2), cells.inRow(7).map { it.number }) },
             { assertEquals(listOf(2, 7, null, 1, null, null, null, null, null), cells.inRow(8).map { it.number }) },
         )
+    }
+
+    fun createCell(id: Int, number: Int): Cell {
+        return Cell(id).also { it.number = number }
+    }
+
+    fun createCell(id: Int, possible: Set<Int>): Cell {
+        return Cell(id).also { it.setPossibles(possible) }
+    }
+
+    fun createCells(map: Map<Int, Int>) : List<Cell> {
+        return (0 until PuzzleData.unitSize).map {
+            val num = map[it]
+            if (num == null) {
+                createCell(it, emptySet())
+            } else {
+                createCell(it, num)
+            }
+        }
+    }
+
+    fun createCells(vararg args: Any) = createCells(args.toList())
+
+    fun createCells(args: List<Any>): List<Cell> {
+        return args.withIndex().map { (index, arg) ->
+            if (arg is Set<*> && arg.all { it is Int }) {
+                val intSet = arg as Set<Int>
+                createCell(index, intSet)
+            } else {
+                val num = arg as Int
+                createCell(index, num)
+            }
+        }
     }
 }

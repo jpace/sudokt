@@ -11,9 +11,9 @@ class CellTest {
     @Test
     fun init() {
         val obj = newInstance(4)
-        assertNull(obj.number())
-        obj.setNumber(7)
-        assertEquals(7, obj.number())
+        assertNull(obj.number)
+        obj.number = 7
+        assertEquals(7, obj.number)
     }
 
     @Test

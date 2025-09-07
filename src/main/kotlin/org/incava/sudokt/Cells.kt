@@ -1,23 +1,27 @@
 package org.incava.sudokt
 
-class Cells(val cells: List<Cell>) {
-    val size: Int = cells.size
+class Cells(private val elements: List<Cell>) {
+    val size: Int = elements.size
 
-    operator fun get(row: Int, column: Int) = cells.first { it.position == positionOf(row, column) }
+    operator fun get(row: Int, column: Int) = elements.first { it.position == positionOf(row, column) }
 
     fun inRow(row: Int): List<Cell> {
-        return filter(row) { it.row }
+        return filterForPosition(row) { it.row }
     }
 
     fun inColumn(column: Int): List<Cell> {
-        return filter(column) { it.column }
+        return filterForPosition(column) { it.column }
     }
 
     fun inBox(box: Int): List<Cell> {
-        return filter(box) { it.box }
+        return filterForPosition(box) { it.box }
     }
 
-    fun filter(value: Int, block: (Position) -> Int): List<Cell> {
-        return cells.filter { value == block(it.position) }
+    fun filterForPosition(value: Int, block: (Position) -> Int): List<Cell> {
+        return elements.filter { value == block(it.position) }
+    }
+
+    fun filter(block: (Cell) -> Boolean): List<Cell> {
+        return elements.filter { block(it) }
     }
 }

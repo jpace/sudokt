@@ -27,7 +27,7 @@ class PuzzleView(val puzzle: Puzzle, val showId: Boolean, val showNumber: Boolea
                 printCells(highlight, row, "id") { it.id }
             }
             if (showNumber) {
-                printCells(highlight, row, "number") { it.number() ?: "" }
+                printCells(highlight, row, "number") { it.number ?: "" }
             }
             if (showPossible) {
                 printCells(highlight, row, "possible") { formatPossible(it) }

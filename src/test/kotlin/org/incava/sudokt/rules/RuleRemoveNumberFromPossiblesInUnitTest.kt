@@ -1,107 +1,25 @@
 package org.incava.sudokt.rules
 
-import org.incava.io.Qlog
-import org.incava.sudokt.view.PuzzleView
+import org.incava.sudokt.Cells
+import org.incava.sudokt.test.TestFixture.createCells
 import org.junit.jupiter.api.assertAll
-import kotlin.test.BeforeTest
 import kotlin.test.Test
+import kotlin.test.assertEquals
 
-class RuleRemoveNumberFromPossiblesInUnitTest : RuleTestBase() {
-    @BeforeTest
-    fun setup2() {
-        Qlog.info("running setup2")
-        val infer = RuleInferPossible(cells)
-        infer.execute()
-    }
-
+class RuleRemoveNumberFromPossiblesInUnitTest {
     @Test
-    fun checkRow() {
+    fun checkUnitCells() {
+        val all = (1..9).toSet()
+        val cells = createCells(all, 9, 8, all, all, all, 6, all, all)
+        val obj = RuleRemoveNumberFromPossiblesInUnit(Cells(cells))
+        val updated = obj.checkUnitCells(cells)
+        val filtered = (1..5).toSet() + 7
+        val expected = createCells(filtered, 9, 8, filtered, filtered, filtered, 6, filtered, filtered)
         assertAll(
-            { assertPossible(all, 4 to 0) },
-            { assertPossible(none, 4 to 1) },
-            { assertPossible(none, 4 to 2) },
-            { assertPossible(all, 4 to 3) },
-            { assertPossible(all, 4 to 4) },
-            { assertPossible(all, 4 to 5) },
-            { assertPossible(none, 4 to 6) },
-            { assertPossible(all, 4 to 7) },
-            { assertPossible(all, 4 to 8) }
-        )
-        val obj = RuleRemoveNumberFromPossiblesInUnit(cells)
-        obj.checkRow(4)
-        val valid = (1..5).toSet() + 7
-        assertAll(
-            { assertPossible(valid, 4 to 0) },
-            { assertPossible(none, 4 to 1) },
-            { assertPossible(none, 4 to 2) },
-            { assertPossible(valid, 4 to 3) },
-            { assertPossible(valid, 4 to 4) },
-            { assertPossible(valid, 4 to 5) },
-            { assertPossible(none, 4 to 6) },
-            { assertPossible(valid, 4 to 7) },
-            { assertPossible(valid, 4 to 8) }
-        )
-    }
-
-    @Test
-    fun checkColumn() {
-        assertAll(
-            { assertPossible(none, 0 to 1) },
-            { assertPossible(none, 1 to 1) },
-            { assertPossible(all, 2 to 1) },
-            { assertPossible(all, 3 to 1) },
-            { assertPossible(none, 4 to 1) },
-            { assertPossible(all, 5 to 1) },
-            { assertPossible(all, 6 to 1) },
-            { assertPossible(all, 7 to 1) },
-            { assertPossible(none, 8 to 1) }
-        )
-        val obj = RuleRemoveNumberFromPossiblesInUnit(cells)
-        obj.checkColumn(1)
-        val valid = (1..5).toSet()
-        assertAll(
-            { assertPossible(none, 0 to 1) },
-            { assertPossible(none, 1 to 1) },
-            { assertPossible(valid, 2 to 1) },
-            { assertPossible(valid, 3 to 1) },
-            { assertPossible(none, 4 to 1) },
-            { assertPossible(valid, 5 to 1) },
-            { assertPossible(valid, 6 to 1) },
-            { assertPossible(valid, 7 to 1) },
-            { assertPossible(none, 8 to 1) }
-        )
-    }
-
-    @Test
-    fun checkBox() {
-        val view = PuzzleView(puzzle = puzzle, showId = false, showNumber = true, showPossible = true)
-        view.show()
-        assertAll(
-            { assertPossible(all, 0 to 3) },
-            { assertPossible(all, 0 to 4) },
-            { assertPossible(none, 0 to 5) },
-            { assertPossible(none, 1 to 3) },
-            { assertPossible(all, 1 to 4) },
-            { assertPossible(all, 1 to 5) },
-            { assertPossible(none, 2 to 3) },
-            { assertPossible(none, 2 to 4) },
-            { assertPossible(none, 2 to 5) }
-        )
-        val obj = RuleRemoveNumberFromPossiblesInUnit(cells)
-        val updated = obj.checkBox(1)
-        Qlog.info("updated", updated.distinct())
-        view.show(updated.distinct())
-        val valid = setOf(1, 2, 4, 7)
-        assertAll(
-            { assertPossible(valid, 0 to 3) },
-            { assertPossible(valid, 0 to 4) },
-            { assertPossible(none, 0 to 5) },
-            { assertPossible(none, 1 to 3) },
-            { assertPossible(valid, 1 to 4) },
-            { assertPossible(valid, 1 to 5) },
-            { assertPossible(none, 2 to 3) },
-            { assertPossible(none, 2 to 4) },
-            { assertPossible(none, 2 to 5) }
+            { assertEquals(expected.size, cells.size) },
+            { assertEquals(expected, cells) },
+            { assertEquals(listOf(cells[0], cells[3], cells[4], cells[5], cells[7], cells[8]), updated.distinct()) },
+            { assertEquals(expected, cells) },
         )
     }
 }

@@ -12,22 +12,25 @@ class RuleHiddenPairs(cells: Cells) : RulePairs(cells) {
     override fun run(): List<Cell> = checkAllUnits()
 
     override fun checkCells(a: Cell, b: Cell, unitCells: List<Cell>): List<Cell> {
-        if (a.possible.isEmpty()) {
+        if (a.possible.isEmpty() || b.possible.isEmpty()) {
             return emptyList()
-        }
-        val updated = mutableListOf<Cell>()
-        val inBoth = a.possible intersect b.possible
-        if (inBoth.size == 2) {
-            val inOthers = (unitCells - a - b).any { (it.possible intersect inBoth).isNotEmpty() }
-            if (!inOthers) {
-                if (a.setPossibles(inBoth)) {
-                    updated += a
+        } else {
+            val inBoth = a.possible intersect b.possible
+            return if (inBoth.size == 2) {
+                val updated = mutableListOf<Cell>()
+                val inOthers = (unitCells - a - b).any { (it.possible intersect inBoth).isNotEmpty() }
+                if (!inOthers) {
+                    if (a.setPossibles(inBoth)) {
+                        updated += a
+                    }
+                    if (b.setPossibles(inBoth)) {
+                        updated += b
+                    }
                 }
-                if (b.setPossibles(inBoth)) {
-                    updated += b
-                }
+                updated
+            } else {
+                emptyList()
             }
         }
-        return updated
     }
 }

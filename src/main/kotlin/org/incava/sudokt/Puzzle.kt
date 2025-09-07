@@ -17,7 +17,7 @@ class Puzzle {
     }
 
     fun setCell(position: Position, number: Int) {
-        cells.first { it.position == position }.setNumber(number)
+        cells.first { it.position == position }.number = number
     }
 
     fun isSolved() : Boolean {

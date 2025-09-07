@@ -1,5 +1,6 @@
 package org.incava.sudokt.rules
 
+import org.incava.io.Qlog
 import org.incava.sudokt.Cell
 import org.incava.sudokt.Cells
 import org.incava.sudokt.impl.PuzzleData
@@ -12,18 +13,19 @@ class RuleRemoveNumberFromPossiblesInUnit(cells: Cells) : RuleAllUnits(cells) {
     """.trimIndent()
 
     override fun checkUnitCells(unitCells: List<Cell>): List<Cell> {
+        Qlog.info("unitCells", unitCells)
         val updated = mutableListOf<Cell>()
         unitCells.subList(0, PuzzleData.unitSize).forEach { a ->
-            if (a.number != null) {
-                // not sure why IJ/Kotlin can't infer from null (Int? -> Int)
-                val num = a.number!!
+            val number = a.number
+            if (number != null) {
                 (unitCells - a).forEach {
-                    if (it.removePossible(num)) {
+                    if (it.removePossible(number)) {
                         updated += it
                     }
                 }
             }
         }
+        Qlog.info("unitCells", unitCells)
         return updated
     }
 }
