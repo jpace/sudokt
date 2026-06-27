@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2acf87ee-0c2c-4eaf-948d-594bfaa3a9c3" name="Changes" comment="" />
+    <list default="true" id="2acf87ee-0c2c-4eaf-948d-594bfaa3a9c3" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/view/PuzzleView1Line.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/view/PuzzleView2Line.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/view/PuzzleView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/view/PuzzleView.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/org/incava/sudokt/PuzzleTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/org/incava/sudokt/PuzzleTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/org/incava/sudokt/rules/RuleRemoveNumberFromPossiblesInUnitTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/org/incava/sudokt/rules/RuleRemoveNumberFromPossiblesInUnitTest.kt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,9 +43,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$" gradleHome="$USER_HOME$/.sdkman/candidates/gradle/9.1.0" javaHome="$USER_HOME$/.sdkman/candidates/java/current" gradleVersion="9.1.0" />
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 8
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="3FglwbjFoi54ryn2CiwqHM9ip9C" />
   <component name="ProjectViewState">
     <option name="autoscrollFromSource" value="true" />
@@ -47,12 +54,15 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Gradle.Build sudokt.executor": "Run",
     "Gradle.Upgrade Gradle wrapper.executor": "Run",
+    "JUnit.PuzzleTest.executor": "Run",
+    "JUnit.RuleRemoveNumberFromPossiblesInUnitTest.checkUnitCells.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "update-build-config",
-    "idea.background.editor": "/home/jpace/Projects/org/incava/sudokt/src/images/v2/bg_272d38_tiled.png,25,tile,center",
+    "git-widget-placeholder": "add-puzzle",
+    "idea.background.editor": "/home/jpace/Projects/org/incava/sudokt/src/images/v2/bg_272d38_full.png,49,scale,center",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/jpace/Projects/org/incava/sudokt",
@@ -69,6 +79,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="org.incava.sudokt.view" />
+    </key>
+  </component>
   <component name="RubyModuleManagerSettings">
     <option name="blackListedRootsPaths">
       <list>
@@ -76,6 +91,69 @@
         <option value="$PROJECT_DIR$/src/test" />
       </list>
     </option>
+  </component>
+  <component name="RunManager" selected="Gradle.sudokt [clean build]">
+    <configuration name="sudokt [clean build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="PuzzleTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sudokt.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.incava.sudokt.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.incava.sudokt" />
+      <option name="MAIN_CLASS_NAME" value="org.incava.sudokt.PuzzleTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RuleRemoveNumberFromPossiblesInUnitTest.checkUnitCells" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sudokt.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.incava.sudokt.rules.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.incava.sudokt.rules" />
+      <option name="MAIN_CLASS_NAME" value="org.incava.sudokt.rules.RuleRemoveNumberFromPossiblesInUnitTest" />
+      <option name="METHOD_NAME" value="checkUnitCells" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.sudokt [clean build]" />
+        <item itemvalue="JUnit.RuleRemoveNumberFromPossiblesInUnitTest.checkUnitCells" />
+        <item itemvalue="JUnit.PuzzleTest" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -92,7 +170,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1782504832574</updated>
-      <workItem from="1782504835612" duration="6907000" />
+      <workItem from="1782504835612" duration="8197000" />
     </task>
     <servers />
   </component>
