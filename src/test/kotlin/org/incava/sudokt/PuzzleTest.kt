@@ -6,13 +6,14 @@ import org.incava.sudokt.rules.RuleInferPossible
 import org.incava.sudokt.rules.RuleSinglePossible
 import org.incava.sudokt.test.TestFixture
 import org.incava.sudokt.view.PuzzleView
+import org.incava.sudokt.view.PuzzleView1Line
 import kotlin.test.Test
 
 class PuzzleTest {
     @Test
     fun solve() {
         val obj = TestFixture.createPuzzle2()
-        val view = PuzzleView(puzzle = obj, showId = false, showNumber = true, showPossible = true)
+        val view = PuzzleView1Line(puzzle = obj, showId = false, showNumber = true, showPossible = true)
         view.show()
 
         val cells = Cells(obj.cells)

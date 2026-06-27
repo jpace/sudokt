@@ -4,44 +4,23 @@ import org.incava.sudokt.Cell
 import org.incava.sudokt.Puzzle
 import org.incava.sudokt.Util
 
-class PuzzleView(val puzzle: Puzzle, val showId: Boolean, val showNumber: Boolean, val showPossible: Boolean) {
+abstract class PuzzleView(val puzzle: Puzzle, val showId: Boolean, val showNumber: Boolean, val showPossible: Boolean) {
     val cells = puzzle.cells
-    private val numRows = 9
-    private val numColumns = 9
-    private val rowWidth = if (showPossible) 12 else 8
+    val numRows = 9
+    val numColumns = 9
+    val rowWidth = if (showPossible) 12 else 8
 
     fun show() {
         show(emptyList())
     }
 
-    fun show(highlight: List<Cell>) {
-        val header = (0 until numColumns).map { it.toString() to false }
-        printRow("", "", header)
-        (0 until numRows).forEach { row ->
-            if (row % 3 == 0) {
-                printBreak("", '=')
-            } else {
-                printBreak("", '-')
-            }
-            if (showId) {
-                printCells(highlight, row, "id") { it.id }
-            }
-            if (showNumber) {
-                printCells(highlight, row, "number") { it.number ?: "" }
-            }
-            if (showPossible) {
-                printCells(highlight, row, "possible") { formatPossible(it) }
-            }
-        }
-        printBreak("", '=')
-        println()
-    }
+    abstract fun show(highlight: List<Cell>)
 
     fun formatPossible(cell: Cell): String {
         return if (cell.possible.size == 9) {
-            "1..9"
+            "[1..9]"
         } else {
-            cell.possible.joinToString(" ")
+            "[${cell.possible.joinToString(",")}]"
         }
     }
 
