@@ -5,12 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2acf87ee-0c2c-4eaf-948d-594bfaa3a9c3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/view/PuzzleView1Line.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/view/PuzzleView2Line.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/rules/RuleBoxCells.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/rules/RuleColumnCells.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/rules/RuleRowCells.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/rules/RuleUnits.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/Cells.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/PuzzleCells.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/Rule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/Rule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/rules/RuleAllUnits.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/rules/RuleAllUnits.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/rules/RuleEachCell.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/rules/RuleEachCell.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/rules/RuleHiddenPairs.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/rules/RuleHiddenPairs.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/rules/RuleInferPossible.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/rules/RuleInferPossible.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/rules/RuleNakedPairs.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/rules/RuleNakedPairs.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/rules/RulePairs.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/rules/RulePairs.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/rules/RuleRemoveNumberFromPossiblesInUnit.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/rules/RuleRemoveNumberFromPossiblesInUnit.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/rules/RuleSinglePossible.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/rules/RuleSinglePossible.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/rules/Rules.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/rules/Rules.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/view/PuzzleView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/view/PuzzleView.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/view/PuzzleView1Line.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/incava/sudokt/view/PuzzleView1Line.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/org/incava/sudokt/CellsTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/org/incava/sudokt/CellsTest.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/kotlin/org/incava/sudokt/PuzzleTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/org/incava/sudokt/PuzzleTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/org/incava/sudokt/rules/RuleHiddenPairsTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/org/incava/sudokt/rules/RuleHiddenPairsTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/org/incava/sudokt/rules/RuleInferPossibleTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/org/incava/sudokt/rules/RuleInferPossibleTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/org/incava/sudokt/rules/RuleNakedPairsTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/org/incava/sudokt/rules/RuleNakedPairsTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/org/incava/sudokt/rules/RulePairsTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/org/incava/sudokt/rules/RulePairsTest.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/kotlin/org/incava/sudokt/rules/RuleRemoveNumberFromPossiblesInUnitTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/org/incava/sudokt/rules/RuleRemoveNumberFromPossiblesInUnitTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/org/incava/sudokt/rules/RuleSinglePossibleTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/org/incava/sudokt/rules/RuleSinglePossibleTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/org/incava/sudokt/rules/RulesTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/org/incava/sudokt/rules/RulesTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/org/incava/sudokt/test/TestFixture.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/org/incava/sudokt/test/TestFixture.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,35 +74,38 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.Build sudokt.executor": "Run",
-    "Gradle.Upgrade Gradle wrapper.executor": "Run",
-    "JUnit.PuzzleTest.executor": "Run",
-    "JUnit.RuleRemoveNumberFromPossiblesInUnitTest.checkUnitCells.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "add-puzzle",
-    "idea.background.editor": "/home/jpace/Projects/org/incava/sudokt/src/images/v2/bg_272d38_full.png,49,scale,center",
-    "junie.onboarding.icon.badge.shown": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/jpace/Projects/org/incava/sudokt",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "to.speed.mode.migration.done": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.Build sudokt.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Upgrade Gradle wrapper.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.sudokt [clean build].executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PuzzleTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PuzzleTest.solve.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.RuleRemoveNumberFromPossiblesInUnitTest.checkUnitCells.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;add-puzzle&quot;,
+    &quot;idea.background.editor&quot;: &quot;/home/jpace/Projects/org/incava/sudokt/src/images/v2/bg_272d38_full.png,49,scale,center&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/jpace/Projects/org/incava/sudokt&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="org.incava.sudokt.rules" />
       <recent name="org.incava.sudokt.view" />
     </key>
   </component>
@@ -92,7 +117,12 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.sudokt [clean build]">
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="gradle clean build" />
+    </option>
+  </component>
+  <component name="RunManager" selected="JUnit.PuzzleTest.solve">
     <configuration name="sudokt [clean build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -131,6 +161,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="PuzzleTest.solve" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sudokt.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.incava.sudokt.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.incava.sudokt" />
+      <option name="MAIN_CLASS_NAME" value="org.incava.sudokt.PuzzleTest" />
+      <option name="METHOD_NAME" value="solve" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="RuleRemoveNumberFromPossiblesInUnitTest.checkUnitCells" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="sudokt.test" />
       <extension name="coverage">
@@ -149,6 +195,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.PuzzleTest.solve" />
         <item itemvalue="Gradle.sudokt [clean build]" />
         <item itemvalue="JUnit.RuleRemoveNumberFromPossiblesInUnitTest.checkUnitCells" />
         <item itemvalue="JUnit.PuzzleTest" />
@@ -170,7 +217,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1782504832574</updated>
-      <workItem from="1782504835612" duration="8197000" />
+      <workItem from="1782504835612" duration="13008000" />
+      <workItem from="1782651601207" duration="156000" />
     </task>
     <servers />
   </component>
