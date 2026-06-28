@@ -42,7 +42,8 @@ class PuzzleTest {
 
     fun runRule(rule: Rule): Boolean {
         Qlog.info("rule", rule)
-        rule.execute()
+        val result = rule.execute()
+        Qlog.info("result", result)
         Qlog.info("rule.updated?", rule.updated)
         if (rule.updated) {
             Qlog.info("rule.description", rule.description())

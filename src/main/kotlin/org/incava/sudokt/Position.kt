@@ -7,6 +7,8 @@ data class Position(val id: Int) {
     val row = id / 9
     val column = id % 9
     val box = column / 3 + row / 3 * 3
+
+    override fun toString() = "${row + 1},${column + 1}"
 }
 
 object PositionFactory {
