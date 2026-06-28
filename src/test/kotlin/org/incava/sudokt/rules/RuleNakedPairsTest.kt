@@ -1,6 +1,6 @@
 package org.incava.sudokt.rules
 
-import org.incava.sudokt.Cells
+import org.incava.sudokt.PuzzleCells
 import org.incava.sudokt.test.TestFixture.createCells
 import org.junit.jupiter.api.assertAll
 import kotlin.test.Test
@@ -20,7 +20,7 @@ class RuleNakedPairsTest {
             setOf(4, 7),
             2
         )
-        val obj = RuleNakedPairs(Cells(cells))
+        val obj = RuleNakedPairs(PuzzleCells(cells))
         val updated = obj.checkCells(cells[2], cells[5], cells)
         assertAll(
             { assertEquals(listOf(cells[1], cells[6], cells[7]), updated) },

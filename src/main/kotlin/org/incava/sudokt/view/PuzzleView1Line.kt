@@ -8,7 +8,7 @@ class PuzzleView1Line(puzzle: Puzzle, showId: Boolean, showNumber: Boolean, show
 
     override fun show(highlight: List<Cell>) {
         val header = (0 until numColumns).map { it.toString() to false }
-        printRow("", "", header)
+        // printRow("", "", header)
         (0 until numRows).forEach { row ->
             if (row % 3 == 0) {
                 printBreak("", '=')
@@ -28,5 +28,9 @@ class PuzzleView1Line(puzzle: Puzzle, showId: Boolean, showNumber: Boolean, show
         }
         printBreak("", '=')
         println()
+    }
+
+    override fun printRow(row: Any, message: String, strings: List<Pair<String, Boolean>>) {
+        printRow(null, strings)
     }
 }

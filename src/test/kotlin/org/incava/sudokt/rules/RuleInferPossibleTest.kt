@@ -1,7 +1,7 @@
 package org.incava.sudokt.rules
 
 import org.incava.sudokt.Cell
-import org.incava.sudokt.Cells
+import org.incava.sudokt.PuzzleCells
 import org.junit.jupiter.api.assertAll
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -13,7 +13,7 @@ class RuleInferPossibleTest {
             Cell(0),
             Cell(1).also { it.number = 3 }
         )
-        val obj = RuleInferPossible(Cells(emptyList()))
+        val obj = RuleInferPossible(PuzzleCells(emptyList()))
         obj.checkCell(cells[0])
         obj.checkCell(cells[1])
         assertAll(

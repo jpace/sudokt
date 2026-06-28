@@ -1,10 +1,10 @@
 package org.incava.sudokt.rules
 
 import org.incava.sudokt.Cell
-import org.incava.sudokt.Cells
+import org.incava.sudokt.PuzzleCells
 
-class RuleSinglePossible(cells: Cells) : RuleEachCell(cells) {
-    fun description() = """
+class RuleSinglePossible(cells: PuzzleCells) : RuleEachCell(cells) {
+    override fun description() = """
         for a cell X without a defined number and with only one possibility I, define the number as I and clear it as a possibility"
     """.trimIndent()
 
@@ -13,6 +13,7 @@ class RuleSinglePossible(cells: Cells) : RuleEachCell(cells) {
             val number = cell.possible.first()
             cell.number = number
             cell.removePossible(number)
+            super.updated = true
             return true
         } else {
             return false

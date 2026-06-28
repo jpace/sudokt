@@ -1,6 +1,6 @@
 package org.incava.sudokt
 
-class Cells(private val elements: List<Cell>) {
+class PuzzleCells(private val elements: List<Cell>) {
     val size: Int = elements.size
 
     operator fun get(row: Int, column: Int) = elements.first { it.position == positionOf(row, column) }

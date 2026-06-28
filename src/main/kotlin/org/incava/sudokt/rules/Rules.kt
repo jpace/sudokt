@@ -1,10 +1,10 @@
 package org.incava.sudokt.rules
 
-import org.incava.sudokt.Cells
+import org.incava.sudokt.PuzzleCells
 import org.incava.sudokt.Rule
 
 class Rules {
-    val byLevel: List<(Cells) -> Rule>
+    val byLevel: List<(PuzzleCells) -> Rule>
 
     init {
         byLevel = listOf(

@@ -1,7 +1,7 @@
 package org.incava.sudokt.rules
 
 import org.incava.sudokt.Cell
-import org.incava.sudokt.Cells
+import org.incava.sudokt.PuzzleCells
 import org.incava.sudokt.test.TestFixture.createCells
 import org.junit.jupiter.api.assertAll
 import kotlin.test.Test
@@ -10,16 +10,15 @@ import kotlin.test.assertEquals
 class RulePairsTest {
     @Test
     fun checkUnitCells() {
-        class RulePairsMock(cells: Cells) : RulePairs(cells) {
+        class RulePairsMock(cells: PuzzleCells) : RulePairs(cells) {
             val invoked = mutableListOf<Triple<Cell, Cell, List<Cell>>>()
             override fun checkCells(a: Cell, b: Cell, unitCells: List<Cell>): List<Cell> {
                 invoked += Triple(a, b, unitCells)
                 return emptyList()
             }
 
-            override fun run(): List<Cell> {
-                TODO("Not yet implemented")
-            }
+            override fun description(): String = "bogus description"
+            override fun run(): List<Cell> = emptyList()
         }
 
         val cells = createCells(
@@ -33,7 +32,7 @@ class RulePairsTest {
             9,
             setOf(1, 6, 5)
         )
-        val obj = RulePairsMock(Cells(cells))
+        val obj = RulePairsMock(PuzzleCells(cells))
         obj.checkRow(0)
         assertAll(
             { assertEquals(36, obj.invoked.size) },

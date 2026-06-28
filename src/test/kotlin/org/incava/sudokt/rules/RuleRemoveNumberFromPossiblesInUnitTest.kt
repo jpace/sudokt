@@ -1,6 +1,6 @@
 package org.incava.sudokt.rules
 
-import org.incava.sudokt.Cells
+import org.incava.sudokt.PuzzleCells
 import org.incava.sudokt.test.TestFixture.createCells
 import org.junit.jupiter.api.assertAll
 import kotlin.test.Test
@@ -11,7 +11,7 @@ class RuleRemoveNumberFromPossiblesInUnitTest {
     fun checkUnitCells() {
         val all = (1..9).toSet()
         val cells = createCells(all, 9, 8, all, all, all, 6, all, all)
-        val obj = RuleRemoveNumberFromPossiblesInUnit(Cells(cells))
+        val obj = RuleRemoveNumberFromPossiblesInUnit(PuzzleCells(cells))
         val updated = obj.checkUnitCells(cells)
         val filtered = (1..5).toSet() + 7
         val expected = createCells(filtered, 9, 8, filtered, filtered, filtered, 6, filtered, filtered)

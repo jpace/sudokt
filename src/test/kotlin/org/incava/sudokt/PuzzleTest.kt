@@ -5,7 +5,6 @@ import org.incava.sudokt.rules.RuleRemoveNumberFromPossiblesInUnit
 import org.incava.sudokt.rules.RuleInferPossible
 import org.incava.sudokt.rules.RuleSinglePossible
 import org.incava.sudokt.test.TestFixture
-import org.incava.sudokt.view.PuzzleView
 import org.incava.sudokt.view.PuzzleView1Line
 import kotlin.test.Test
 
@@ -16,9 +15,9 @@ class PuzzleTest {
         val view = PuzzleView1Line(puzzle = obj, showId = false, showNumber = true, showPossible = true)
         view.show()
 
-        val cells = Cells(obj.cells)
+        val cells = PuzzleCells(obj.cells)
         val infer = RuleInferPossible(cells)
-        infer.execute()
+        runRule(infer)
         view.show()
 
         val rule1 = RuleRemoveNumberFromPossiblesInUnit(cells)
@@ -30,18 +29,25 @@ class PuzzleTest {
                 Qlog.info("iteration", iteration)
                 return
             }
-            rule1.execute()
-            Qlog.info("rule1", rule1)
-            Qlog.info("rule1.updated?", rule1.updated)
-            view.show()
-
-            rule2.execute()
-            Qlog.info("rule2", rule2)
-            Qlog.info("rule2.updated?", rule2.updated)
-            view.show()
+            if (runRule(rule1)) {
+                view.show()
+            }
+            if (runRule(rule2)) {
+                view.show()
+            }
         }
 
         Qlog.info("puzzle.solved?", obj.isSolved())
+    }
+
+    fun runRule(rule: Rule): Boolean {
+        Qlog.info("rule", rule)
+        rule.execute()
+        Qlog.info("rule.updated?", rule.updated)
+        if (rule.updated) {
+            Qlog.info("rule.description", rule.description())
+        }
+        return rule.updated
     }
 
     @Test

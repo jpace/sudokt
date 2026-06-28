@@ -1,6 +1,6 @@
 package org.incava.sudokt.rules
 
-import org.incava.sudokt.Cells
+import org.incava.sudokt.PuzzleCells
 import org.incava.sudokt.test.TestFixture.createCells
 import org.junit.jupiter.api.assertAll
 import kotlin.test.Test
@@ -20,7 +20,7 @@ class RuleHiddenPairsTest {
             9,
             setOf(1, 6, 5),
         )
-        val obj = RuleHiddenPairs(Cells(cells))
+        val obj = RuleHiddenPairs(PuzzleCells(cells))
         val updated = obj.checkCells(cells[5], cells[8], cells)
         assertAll(
             { assertEquals(listOf(cells[5], cells[8]), updated) },

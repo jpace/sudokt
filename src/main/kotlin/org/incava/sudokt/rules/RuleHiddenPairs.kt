@@ -1,10 +1,10 @@
 package org.incava.sudokt.rules
 
 import org.incava.sudokt.Cell
-import org.incava.sudokt.Cells
+import org.incava.sudokt.PuzzleCells
 
-class RuleHiddenPairs(cells: Cells) : RulePairs(cells) {
-    fun description() = """
+class RuleHiddenPairs(cells: PuzzleCells) : RulePairs(cells) {
+    override fun description() = """
         for cells X and Y in the same unit U with possibilities I and J, 
         remove I and J a possible in all other cells in all of X's and Y's units"
     """.trimIndent()
@@ -17,17 +17,17 @@ class RuleHiddenPairs(cells: Cells) : RulePairs(cells) {
         } else {
             val inBoth = a.possible intersect b.possible
             return if (inBoth.size == 2) {
-                val updated = mutableListOf<Cell>()
+                val updatedCells = mutableListOf<Cell>()
                 val inOthers = (unitCells - a - b).any { (it.possible intersect inBoth).isNotEmpty() }
                 if (!inOthers) {
                     if (a.setPossibles(inBoth)) {
-                        updated += a
+                        updatedCells += a
                     }
                     if (b.setPossibles(inBoth)) {
-                        updated += b
+                        updatedCells += b
                     }
                 }
-                updated
+                updatedCells
             } else {
                 emptyList()
             }

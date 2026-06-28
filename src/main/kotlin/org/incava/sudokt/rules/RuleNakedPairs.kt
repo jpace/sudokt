@@ -1,10 +1,10 @@
 package org.incava.sudokt.rules
 
 import org.incava.sudokt.Cell
-import org.incava.sudokt.Cells
+import org.incava.sudokt.PuzzleCells
 
-class RuleNakedPairs(cells: Cells) : RulePairs(cells) {
-    fun description() = """
+class RuleNakedPairs(cells: PuzzleCells) : RulePairs(cells) {
+    override fun description() = """
         for cells X and Y in the same unit U with possibilities I and J, 
         remove I and J a possible in all other cells in all of X's and Y's unit"
     """.trimIndent()

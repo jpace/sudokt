@@ -20,7 +20,12 @@ abstract class PuzzleView(val puzzle: Puzzle, val showId: Boolean, val showNumbe
         return if (cell.possible.size == 9) {
             "[1..9]"
         } else {
-            "[${cell.possible.joinToString(",")}]"
+            val possible = cell.possible
+            if (possible.isEmpty()) {
+                "?"
+            } else {
+                "[${cell.possible.joinToString(",")}]"
+            }
         }
     }
 
@@ -30,8 +35,15 @@ abstract class PuzzleView(val puzzle: Puzzle, val showId: Boolean, val showNumbe
         printRow(row, "", strings)
     }
 
-    fun printRow(row: Any, message: String, strings: List<Pair<String, Boolean>>) {
-        System.out.printf(" %3.3s %-12.12s", row, message)
+    open fun printRow(row: Any, message: String, strings: List<Pair<String, Boolean>>) {
+        val msg = String.format(" %3.3s %-12.12s", row, message)
+        printRow(msg, strings)
+    }
+
+    fun printRow(lhsMessage: String?, strings: List<Pair<String, Boolean>>) {
+        if (lhsMessage != null) {
+            System.out.printf("%s", lhsMessage)
+        }
         val formatted = strings.map { (str, highlight) ->
             if (highlight) {
                 val width = rowWidth - 4

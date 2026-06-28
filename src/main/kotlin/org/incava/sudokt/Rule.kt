@@ -1,8 +1,9 @@
 package org.incava.sudokt
 
-abstract class Rule(open val cells: Cells) {
+abstract class Rule(val cells: PuzzleCells) {
     var updated = false
 
+    abstract fun description() : String
     abstract fun run() : List<Cell>
 
     fun execute() : List<Cell> {

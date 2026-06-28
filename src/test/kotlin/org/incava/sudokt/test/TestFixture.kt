@@ -1,7 +1,7 @@
 package org.incava.sudokt.test
 
 import org.incava.sudokt.Cell
-import org.incava.sudokt.Cells
+import org.incava.sudokt.PuzzleCells
 import org.incava.sudokt.Puzzle
 import org.incava.sudokt.impl.PuzzleData
 import org.junit.jupiter.api.assertAll
@@ -26,7 +26,7 @@ object TestFixture {
     }
 
     fun checkPuzzle(puzzle: Puzzle) {
-        val cells = Cells(puzzle.cells)
+        val cells = PuzzleCells(puzzle.cells)
         assertAll(
             { assertEquals(81, cells.size) },
             { assertEquals(listOf(null, 8, 1, null, null, 6, 7, null, 5), cells.inRow(0).map { it.number }) },
