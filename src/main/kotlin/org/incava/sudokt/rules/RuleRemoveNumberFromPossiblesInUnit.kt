@@ -5,6 +5,8 @@ import org.incava.sudokt.PuzzleCells
 import org.incava.sudokt.impl.PuzzleData
 
 class RuleRemoveNumberFromPossiblesInUnit(cells: PuzzleCells) : RuleAllUnits(cells) {
+    val level = LEVEL
+
     override fun run() = checkAllUnits()
 
     override fun description() = """
@@ -29,5 +31,9 @@ class RuleRemoveNumberFromPossiblesInUnit(cells: PuzzleCells) : RuleAllUnits(cel
             }
         }
         return updatedCells
+    }
+
+    companion object {
+        const val LEVEL = 3
     }
 }

@@ -13,6 +13,11 @@ class Cell(val id: Int) {
         return numbers.fold(false) { acc, num -> removePossible(num) || acc }
     }
 
+    fun setNumber(number: Int) {
+        this.number = number
+        possible.clear()
+    }
+
     fun setPossibles(possible: Set<Int>): Boolean {
         return if (this.possible == possible) {
             false

@@ -8,7 +8,6 @@ class Rules {
 
     init {
         byLevel = listOf(
-            ::RuleSinglePossible,
             ::RuleRemoveNumberFromPossiblesInUnit,
             ::RuleNakedPairs,
             ::RuleHiddenPairs

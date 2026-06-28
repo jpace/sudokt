@@ -28,7 +28,6 @@ class RuleCellInferPossibleTest {
 
     @Test
     fun level() {
-        val arg = Cell(1)
         assertEquals(1, RuleCellInferPossible.LEVEL)
     }
 }
