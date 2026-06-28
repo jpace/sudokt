@@ -20,6 +20,7 @@ class RuleNakedPairs(cells: PuzzleCells) : RulePairs(cells) {
                     a.possible.forEach { num ->
                         if (it.removePossible(num)) {
                             updated += it
+                            setUpdated(it)
                         }
                     }
                 }

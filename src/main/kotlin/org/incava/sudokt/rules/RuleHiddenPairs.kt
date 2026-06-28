@@ -22,9 +22,11 @@ class RuleHiddenPairs(cells: PuzzleCells) : RulePairs(cells) {
                 if (!inOthers) {
                     if (a.setPossibles(inBoth)) {
                         updatedCells += a
+                        setUpdated(a)
                     }
                     if (b.setPossibles(inBoth)) {
                         updatedCells += b
+                        setUpdated(b)
                     }
                 }
                 updatedCells

@@ -8,10 +8,9 @@ import org.incava.sudokt.impl.PuzzleData
 
 abstract class RuleAllUnits(private val puzzleCells: PuzzleCells) : Rule() {
     fun checkAllUnits(): List<Cell> {
-        val updatedCells = listOf(::checkRow, ::checkColumn, ::checkBox)
+        return listOf(::checkRow, ::checkColumn, ::checkBox)
             .flatMap { checkUnit(it) }
-        super.updated = updatedCells.isNotEmpty()
-        return updatedCells
+            .onEach { setUpdated(it) }
     }
 
     fun checkUnit(checker: (Int) -> List<Cell>): List<Cell> {

@@ -1,6 +1,5 @@
 package org.incava.sudokt.rules
 
-import org.incava.io.Qlog
 import org.incava.sudokt.Cell
 import org.incava.sudokt.PuzzleCells
 import org.incava.sudokt.impl.PuzzleData
@@ -12,8 +11,11 @@ class RuleRemoveNumberFromPossiblesInUnit(cells: PuzzleCells) : RuleAllUnits(cel
         from a cell X with a defined number, remove that possibility from other cells in X's units"
     """.trimIndent()
 
+    fun description(fromCell: Cell, toCell: Cell) = """
+        from cell ${fromCell.position} with the defined number ${fromCell.number}, remove that possibility from cell ${toCell.position} in X's unit"
+    """.trimIndent()
+
     override fun checkUnitCells(unitCells: List<Cell>): List<Cell> {
-        Qlog.info("unitCells", unitCells)
         val updatedCells = mutableListOf<Cell>()
         unitCells.subList(0, PuzzleData.unitSize).forEach { a ->
             val number = a.number
@@ -21,12 +23,11 @@ class RuleRemoveNumberFromPossiblesInUnit(cells: PuzzleCells) : RuleAllUnits(cel
                 (unitCells - a).forEach {
                     if (it.removePossible(number)) {
                         updatedCells += it
-                        super.updated = true
+                        setUpdated(it, description(a, it))
                     }
                 }
             }
         }
-        Qlog.info("updatedCells", updatedCells)
         return updatedCells
     }
 }

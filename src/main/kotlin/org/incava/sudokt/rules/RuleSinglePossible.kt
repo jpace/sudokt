@@ -13,7 +13,7 @@ class RuleSinglePossible(cells: PuzzleCells) : RuleEachCell(cells) {
             val number = cell.possible.first()
             cell.number = number
             cell.removePossible(number)
-            super.updated = true
+            setUpdated(cell)
             return true
         } else {
             return false
