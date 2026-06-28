@@ -22,7 +22,7 @@ abstract class PuzzleView(val puzzle: Puzzle, val showId: Boolean, val showNumbe
         } else {
             val possible = cell.possible
             if (possible.isEmpty()) {
-                "?"
+                "[?]"
             } else {
                 "[${cell.possible.joinToString(",")}]"
             }

@@ -6,5 +6,10 @@ import org.incava.sudokt.Rule
 
 abstract class RuleUnits(val unit: Int, cells: PuzzleCells, val checker: (unitCells: List<Cell>) -> List<Cell>) :
     Rule(cells) {
+
+    abstract val unitCells: List<Cell>
+
     override fun description(): String = "for unit $unit"
+
+    override fun run(): List<Cell> = checker(unitCells)
 }
