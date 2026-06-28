@@ -12,6 +12,7 @@ class RuleCellInferPossible(cell: Cell) : RuleCell(cell) {
     """.trimIndent()
 
     fun description(cell: Cell) = """
+        Inter Possible
         for cell ${cell.position} without a defined number, set the possible values to 1 through 9
     """.trimIndent()
 

@@ -11,6 +11,7 @@ class RuleCellRemoveNumberFromUnitPossibles(cell: Cell, unitCells: List<Cell>, v
     """.trimIndent()
 
     fun description(fromCell: Cell, toCell: Cell) = """
+        Remove Number from Possibles in Unit $unitType
         from cell ${fromCell.position} with the defined number ${fromCell.number}, remove that possibility from cell ${toCell.position} in X's $unitType"
     """.trimIndent()
 

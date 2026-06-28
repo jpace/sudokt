@@ -11,6 +11,7 @@ class RuleCellSinglePossible(cell: Cell) : RuleCell(cell) {
     """.trimIndent()
 
     fun description(cell: Cell) = """
+        Single Possible
         for cell ${cell.position} without a defined number and with only one possibility ${cell.number}, define the number as ${cell.number}        
     """.trimIndent()
 
