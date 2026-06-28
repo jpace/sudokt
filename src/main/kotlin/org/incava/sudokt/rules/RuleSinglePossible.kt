@@ -5,7 +5,7 @@ import org.incava.sudokt.PuzzleCells
 
 class RuleSinglePossible(cells: PuzzleCells) : RuleEachCell(cells) {
     override fun description() = """
-        for a cell X without a defined number and with only one possibility I, define the number as I and clear it as a possibility"
+        for a cell X without a defined number and with only one possibility I, define the number as I and clear it as a possibility
     """.trimIndent()
 
     override fun checkCell(cell: Cell): Boolean {
