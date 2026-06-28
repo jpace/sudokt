@@ -6,7 +6,7 @@ import org.incava.sudokt.PuzzleCells
 import org.incava.sudokt.Rule
 import org.incava.sudokt.impl.PuzzleData
 
-abstract class RuleAllUnits(cells: PuzzleCells) : Rule(cells) {
+abstract class RuleAllUnits(private val puzzleCells: PuzzleCells) : Rule() {
     fun checkAllUnits(): List<Cell> {
         val updatedCells = listOf(::checkRow, ::checkColumn, ::checkBox)
             .flatMap { checkUnit(it) }
@@ -20,19 +20,19 @@ abstract class RuleAllUnits(cells: PuzzleCells) : Rule(cells) {
 
     fun checkRow(row: Int): List<Cell> {
         Qlog.info("checking row", row)
-        val rule = RuleRowCells(row, cells, ::checkUnitCells)
+        val rule = RuleRowCells(row, puzzleCells, ::checkUnitCells)
         return rule.run()
     }
 
     fun checkColumn(column: Int): List<Cell> {
         Qlog.info("checking column", column)
-        val rule = RuleColumnCells(column, cells, ::checkUnitCells)
+        val rule = RuleColumnCells(column, puzzleCells, ::checkUnitCells)
         return rule.run()
     }
 
     fun checkBox(box: Int): List<Cell> {
         Qlog.info("checking box", box)
-        val rule = RuleBoxCells(box, cells, ::checkUnitCells)
+        val rule = RuleBoxCells(box, puzzleCells, ::checkUnitCells)
         return rule.run()
     }
 
