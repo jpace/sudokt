@@ -11,7 +11,6 @@ class RulesTest {
         val cells = PuzzleCells(emptyList())
         val result = obj.byLevel.map { it(cells).javaClass }
         val expected = listOf(
-            RuleRemoveNumberFromPossiblesInUnit::class.java,
             RuleNakedPairs::class.java,
             RuleHiddenPairs::class.java
         )

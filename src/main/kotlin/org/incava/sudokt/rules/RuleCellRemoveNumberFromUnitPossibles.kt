@@ -1,23 +1,20 @@
 package org.incava.sudokt.rules
 
 import org.incava.sudokt.Cell
-import org.incava.sudokt.PuzzleCells
 import org.incava.sudokt.impl.PuzzleData
 
-class RuleRemoveNumberFromPossiblesInUnit(cells: PuzzleCells) : RuleAllUnits(cells) {
+class RuleCellRemoveNumberFromUnitPossibles(cell: Cell, unitCells: List<Cell>, val unitType: String) : RuleCellUnit(cell, unitCells) {
     val level = LEVEL
 
-    override fun run() = checkAllUnits()
-
     override fun description() = """
-        from a cell X with a defined number, remove that possibility from other cells in X's units"
+        from a cell X with a defined number, remove that possibility from other cells in X's $unitType"
     """.trimIndent()
 
     fun description(fromCell: Cell, toCell: Cell) = """
-        from cell ${fromCell.position} with the defined number ${fromCell.number}, remove that possibility from cell ${toCell.position} in X's unit"
+        from cell ${fromCell.position} with the defined number ${fromCell.number}, remove that possibility from cell ${toCell.position} in X's $unitType"
     """.trimIndent()
 
-    override fun checkUnitCells(unitCells: List<Cell>): List<Cell> {
+    override fun run(cell: Cell, unitCells: List<Cell>): List<Cell> {
         val updatedCells = mutableListOf<Cell>()
         unitCells.subList(0, PuzzleData.unitSize).forEach { a ->
             val number = a.number
@@ -34,6 +31,6 @@ class RuleRemoveNumberFromPossiblesInUnit(cells: PuzzleCells) : RuleAllUnits(cel
     }
 
     companion object {
-        const val LEVEL = 3
+        const val LEVEL = 4
     }
 }

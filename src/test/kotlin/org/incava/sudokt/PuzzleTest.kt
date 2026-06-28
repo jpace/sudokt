@@ -2,8 +2,8 @@ package org.incava.sudokt
 
 import org.incava.io.Qlog
 import org.incava.sudokt.rules.RuleCellInferPossible
+import org.incava.sudokt.rules.RuleCellRemoveNumberFromUnitPossibles
 import org.incava.sudokt.rules.RuleCellSinglePossible
-import org.incava.sudokt.rules.RuleRemoveNumberFromPossiblesInUnit
 import org.incava.sudokt.test.TestFixture
 import org.incava.sudokt.view.PuzzleView1Line
 import kotlin.test.Test
@@ -25,17 +25,11 @@ class PuzzleTest {
 
         view.show()
 
-        // level 3
-        val rule1 = RuleRemoveNumberFromPossiblesInUnit(cells)
-
         repeat(100) { iteration ->
             if (obj.isSolved()) {
                 Qlog.info("obj.solved!", obj.isSolved())
                 Qlog.info("iteration", iteration)
                 return
-            }
-            if (runRule(rule1)) {
-                view.show()
             }
             var singleUpdated = false
             obj.cells.forEach {
@@ -47,9 +41,26 @@ class PuzzleTest {
             if (singleUpdated) {
                 view.show()
             }
+
+            var removeNumberFromUnitPossibles = false
+            obj.cells.forEach { cell ->
+                // level 4
+                removeNumberFromUnitPossibles = removeFromPossiblesInUnit(cell, cells.inRow(cell.position.row), "row") || removeNumberFromUnitPossibles
+                removeNumberFromUnitPossibles = removeFromPossiblesInUnit(cell, cells.inColumn(cell.position.column), "column") || removeNumberFromUnitPossibles
+                removeNumberFromUnitPossibles = removeFromPossiblesInUnit(cell, cells.inBox(cell.position.box), "box") || removeNumberFromUnitPossibles
+                // don't show each time
+            }
+            if (removeNumberFromUnitPossibles) {
+                view.show()
+            }
         }
 
         Qlog.info("puzzle.solved?", obj.isSolved())
+    }
+
+    fun removeFromPossiblesInUnit(cell: Cell, unitCells: List<Cell>, unitType: String): Boolean {
+        val rule = RuleCellRemoveNumberFromUnitPossibles(cell, unitCells, unitType)
+        return runRule(rule)
     }
 
     fun runRule(rule: Rule): Boolean {

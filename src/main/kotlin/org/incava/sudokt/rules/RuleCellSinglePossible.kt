@@ -7,11 +7,11 @@ class RuleCellSinglePossible(cell: Cell) : RuleCell(cell) {
     val level = LEVEL
 
     override fun description() = """
-        for a cell X without a defined number and with only one possibility I, define the number as I and clear it as a possibility"
+        for a cell X without a defined number and with only one possibility I, define the number as I and clear it as a possibility
     """.trimIndent()
 
     fun description(cell: Cell) = """
-        for cell ${cell.position} without a defined number and with only one possibility ${cell.number}, define the number as ${cell.number}"        
+        for cell ${cell.position} without a defined number and with only one possibility ${cell.number}, define the number as ${cell.number}        
     """.trimIndent()
 
     override fun run(): List<Cell> {
