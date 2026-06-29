@@ -1,6 +1,7 @@
 package org.incava.sudokt.rules
 
 import org.incava.sudokt.Cell
+import org.incava.sudokt.RuleResult
 import org.incava.sudokt.impl.PuzzleData
 
 // level 1 rule
@@ -12,19 +13,23 @@ class RuleCellInferPossible(cell: Cell) : RuleCell(cell) {
     """.trimIndent()
 
     fun description(cell: Cell) = """
-        Inter Possible
+        Infer Possible
         for cell ${cell.position} without a defined number, set the possible values to 1 through 9
     """.trimIndent()
 
     override fun run(): List<Cell> {
-        if (cell.number == null) {
-            if (cell.setPossibles(PuzzleData.numbers)) {
-                setUpdated(cell, description(cell))
-            }
+        if (cell.number == null && cell.setPossibles(PuzzleData.numbers)) {
+            setUpdated(cell, description(cell))
             return listOf(cell)
-        } else {
-            return emptyList()
         }
+        return emptyList()
+    }
+
+    fun runWithResult(): RuleResult {
+        if (cell.number == null && cell.setPossibles(PuzzleData.numbers)) {
+            return RuleResult(true, description(cell), listOf(cell))
+        }
+        return RuleResult(false)
     }
 
     companion object {

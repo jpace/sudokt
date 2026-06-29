@@ -1,5 +1,6 @@
 package org.incava.sudokt.rules
 
+import org.incava.io.Qlog
 import org.incava.sudokt.Cell
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
@@ -24,6 +25,30 @@ class RuleCellInferPossibleTest {
         assertEquals(emptyList<Cell>(), result)
         assertFalse(obj.updated)
         assertTrue(arg.possible.isEmpty())
+    }
+
+    @Test
+    fun runWithResultNoNumberSet() {
+        val arg = Cell(1)
+        val obj = RuleCellInferPossible(arg)
+        val result = obj.runWithResult()
+        Qlog.info("result", result)
+        assertEquals(listOf(arg), result.cells)
+        assertTrue(result.updated)
+        assertEquals(9, arg.possible.size)
+        assertEquals("Infer Possible\nfor cell 1,2 without a defined number, set the possible values to 1 through 9", result.description)
+    }
+
+    @Test
+    fun runWithResultNumberSet() {
+        val arg = Cell(1).also { it.number = 3 }
+        val obj = RuleCellInferPossible(arg)
+        val result = obj.runWithResult()
+        Qlog.info("result", result)
+        assertEquals(emptyList<Cell>(), result.cells)
+        assertFalse(result.updated)
+        assertEquals(0, arg.possible.size)
+        assertEquals("", result.description)
     }
 
     @Test
