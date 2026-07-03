@@ -1,9 +1,7 @@
 package org.incava.sudokt.rules
 
-import org.incava.io.Qlog
 import org.incava.sudokt.PuzzleCells
 import org.incava.sudokt.PuzzleFactory
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import kotlin.test.assertIs
 import kotlin.test.assertNotNull
@@ -42,7 +40,6 @@ class RuleGeneratorTest {
     @Test
     fun generateLevel1() = runIt<RuleCellSinglePossible>(1)
 
-    @Disabled("not handling supertype of RuleCellUnit")
     @Test
     fun generateLevel2() = runIt<RuleCellRemoveNumberFromUnitPossibles>(2)
 
