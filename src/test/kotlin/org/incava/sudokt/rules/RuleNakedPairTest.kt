@@ -2,9 +2,6 @@ package org.incava.sudokt.rules
 
 import org.incava.io.Qlog
 import org.incava.sudokt.Cell
-import org.incava.sudokt.PuzzleCells
-import org.incava.sudokt.test.TestFixture.createCells
-import org.junit.jupiter.api.assertAll
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
