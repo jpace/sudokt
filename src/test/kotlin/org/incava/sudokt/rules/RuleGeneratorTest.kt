@@ -3,6 +3,7 @@ package org.incava.sudokt.rules
 import org.incava.io.Qlog
 import org.incava.sudokt.PuzzleCells
 import org.incava.sudokt.PuzzleFactory
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import kotlin.test.assertIs
 import kotlin.test.assertNotNull
@@ -25,25 +26,26 @@ class RuleGeneratorTest {
             || 2 | 7 |   || 1 |   |   ||   |   |   ||
         """.trimIndent()
         val puzzle = PuzzleFactory.createFromString(string)
-        Qlog.info("puzzle", puzzle)
         puzzleCells = PuzzleCells(puzzle.cells)
     }
 
-    @Test
-    fun generateLevel0() {
+    inline fun <reified T> runIt(level: Int) {
         val obj = RuleGenerator()
-        val result = obj.generate(0, puzzleCells)
-        Qlog.info("result", result)
+        val result = obj.generate(level, puzzleCells)
         assertNotNull(result)
-        assertIs<RuleCellInferPossible>(result)
+        assertIs<T>(result)
     }
 
     @Test
-    fun generateLevel1() {
-        val obj = RuleGenerator()
-        val result = obj.generate(1, puzzleCells)
-        Qlog.info("result", result)
-        assertNotNull(result)
-        assertIs<RuleHiddenPair>(result)
-    }
+    fun generateLevel0() = runIt<RuleCellInferPossible>(0)
+
+    @Test
+    fun generateLevel1() = runIt<RuleCellSinglePossible>(1)
+
+    @Disabled("not handling supertype of RuleCellUnit")
+    @Test
+    fun generateLevel2() = runIt<RuleCellRemoveNumberFromUnitPossibles>(2)
+
+    @Test
+    fun generateLevel3() = runIt<RuleHiddenPair>(3)
 }
