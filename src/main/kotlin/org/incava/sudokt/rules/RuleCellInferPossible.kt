@@ -17,19 +17,12 @@ class RuleCellInferPossible(cell: Cell) : RuleCell(cell) {
         for cell ${cell.position} without a defined number, set the possible values to 1 through 9
     """.trimIndent()
 
-    override fun run(): List<Cell> {
-        if (cell.number == null && cell.setPossibles(PuzzleData.numbers)) {
-            setUpdated(cell, description(cell))
-            return listOf(cell)
+    override fun run(): RuleResult {
+        return if (cell.number == null && cell.setPossibles(PuzzleData.numbers)) {
+            RuleResult(true, description(cell), listOf(cell))
+        } else {
+            RuleResult(false)
         }
-        return emptyList()
-    }
-
-    fun runWithResult(): RuleResult {
-        if (cell.number == null && cell.setPossibles(PuzzleData.numbers)) {
-            return RuleResult(true, description(cell), listOf(cell))
-        }
-        return RuleResult(false)
     }
 
     companion object {

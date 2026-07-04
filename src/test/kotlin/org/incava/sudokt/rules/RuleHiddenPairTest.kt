@@ -17,7 +17,7 @@ class RuleHiddenPairTest {
         val y = unitCells[2].also { it.possible = mutableSetOf(1, 2, 3, 4) }
         val obj = RuleHiddenPair(x, y, unitCells)
         val result = obj.run()
-        assertEquals(listOf(unitCells[1], unitCells[2]), result)
+        assertEquals(listOf(unitCells[1], unitCells[2]), result.cells)
         assertEquals(setOf(3, 4), unitCells[1].possible)
         assertEquals(setOf(3, 4), unitCells[2].possible)
     }

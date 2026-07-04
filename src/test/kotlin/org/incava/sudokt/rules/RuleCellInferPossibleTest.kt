@@ -4,6 +4,8 @@ import org.incava.io.Qlog
 import org.incava.sudokt.Cell
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertSame
 
 class RuleCellInferPossibleTest {
     @Test
@@ -11,8 +13,9 @@ class RuleCellInferPossibleTest {
         val arg = Cell(1)
         val obj = RuleCellInferPossible(arg)
         val result = obj.run()
-        assertEquals(listOf(arg), result)
-        assertTrue(obj.updated)
+        assertTrue(result.updated)
+        assertEquals(listOf(arg), result.cells)
+        assertSame(arg, result.cells.first())
         assertEquals(9, arg.possible.size)
     }
 
@@ -22,8 +25,8 @@ class RuleCellInferPossibleTest {
         arg.number = 3
         val obj = RuleCellInferPossible(arg)
         val result = obj.run()
-        assertEquals(emptyList<Cell>(), result)
-        assertFalse(obj.updated)
+        assertFalse(result.updated)
+        assertEquals(emptyList(), result.cells)
         assertTrue(arg.possible.isEmpty())
     }
 
@@ -31,7 +34,7 @@ class RuleCellInferPossibleTest {
     fun runWithResultNoNumberSet() {
         val arg = Cell(1)
         val obj = RuleCellInferPossible(arg)
-        val result = obj.runWithResult()
+        val result = obj.run()
         Qlog.info("result", result)
         assertEquals(listOf(arg), result.cells)
         assertTrue(result.updated)
@@ -43,9 +46,9 @@ class RuleCellInferPossibleTest {
     fun runWithResultNumberSet() {
         val arg = Cell(1).also { it.number = 3 }
         val obj = RuleCellInferPossible(arg)
-        val result = obj.runWithResult()
+        val result = obj.run()
         Qlog.info("result", result)
-        assertEquals(emptyList<Cell>(), result.cells)
+        assertEquals(emptyList(), result.cells)
         assertFalse(result.updated)
         assertEquals(0, arg.possible.size)
         assertEquals("", result.description)

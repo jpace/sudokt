@@ -2,6 +2,7 @@ package org.incava.sudokt.rules
 
 import org.incava.io.Qlog
 import org.incava.sudokt.Cell
+import org.incava.sudokt.RuleResult
 
 class RuleHiddenPair(x: Cell, y: Cell, unitCells: List<Cell>) : RuleCellPair(x, y, unitCells) {
     override fun description() = """
@@ -15,9 +16,9 @@ class RuleHiddenPair(x: Cell, y: Cell, unitCells: List<Cell>) : RuleCellPair(x, 
         are not possibility in other cells, set the possibilities of ${x.position} and ${y.position} to only $matching"
     """.trimIndent()
 
-    override fun run(x: Cell, y: Cell, unitCells: List<Cell>): List<Cell> {
+    override fun run(): RuleResult {
         if (x.possible.isEmpty() || y.possible.isEmpty()) {
-            return emptyList()
+            return RuleResult(false)
         } else {
             val inBoth = x.possible intersect y.possible
             Qlog.info("inBoth", inBoth)
@@ -29,16 +30,14 @@ class RuleHiddenPair(x: Cell, y: Cell, unitCells: List<Cell>) : RuleCellPair(x, 
                     // the possibility might already be the same as inBoth
                     if (x.setPossibles(inBoth)) {
                         updatedCells += x
-                        setUpdated(x, description(inBoth))
                     }
                     if (y.setPossibles(inBoth)) {
                         updatedCells += y
-                        setUpdated(x, description(inBoth))
                     }
                 }
-                updatedCells
+                RuleResult(true, description(inBoth), updatedCells)
             } else {
-                emptyList()
+                RuleResult(false)
             }
         }
     }

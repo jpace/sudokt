@@ -20,7 +20,7 @@ class RuleCellRemoveNumberFromUnitPossiblesTest {
         cell.number = 3
         val obj = RuleCellRemoveNumberFromUnitPossibles(cell, unitCells, "row")
         val result = obj.run()
-        assertEquals(listOf(unitCells.first(), unitCells[2]), result)
+        assertEquals(listOf(unitCells.first(), unitCells[2]), result.cells)
         assertEquals(setOf(1, 2, 4), unitCells.first().possible)
         assertEquals(setOf(4, 5, 6, 7), unitCells[2].possible)
         assertEquals((5..8).toSet(), unitCells.last().possible)

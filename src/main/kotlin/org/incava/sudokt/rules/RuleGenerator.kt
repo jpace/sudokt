@@ -33,29 +33,6 @@ class RuleGenerator {
         throw IllegalArgumentException("Unknown rule type: $rule")
     }
 
-    fun asSingleCellRule(cls: Class<out Rule>): Class<out RuleCell>? {
-        return if (RuleCell::class.java.isAssignableFrom(cls)) {
-            cls.asSubclass(RuleCell::class.java)
-        } else {
-            null
-        }
-    }
-
-    fun asPairRule(cls: Class<out Rule>): Class<out RuleCellPair>? {
-        return if (RuleCellPair::class.java.isAssignableFrom(cls)) {
-            cls.asSubclass(RuleCellPair::class.java)
-        } else {
-            null
-        }
-    }
-    fun asRuleUnitCellSingle(cls: Class<out Rule>): Class<out RuleCellUnit>? {
-        return if (RuleCellUnit::class.java.isAssignableFrom(cls)) {
-            cls.asSubclass(RuleCellUnit::class.java)
-        } else {
-            null
-        }
-    }
-
     inline fun <reified T : Rule> asRule(cls: Class<out Rule>): Class<out T>? {
         return if (T::class.java.isAssignableFrom(cls)) {
             cls.asSubclass(T::class.java)

@@ -12,8 +12,8 @@ class RuleCellSinglePossibleTest {
         arg.number = 3
         val obj = RuleCellSinglePossible(arg)
         val result = obj.run()
-        assertEquals(emptyList<Cell>(), result)
-        assertFalse(obj.updated)
+        assertFalse(result.updated)
+        assertEquals(emptyList<Cell>(), result.cells)
     }
 
     @Test
@@ -22,8 +22,8 @@ class RuleCellSinglePossibleTest {
         arg.possible.add(4)
         val obj = RuleCellSinglePossible(arg)
         val result = obj.run()
-        assertEquals(listOf(arg), result)
-        assertTrue(obj.updated)
+        assertTrue(result.updated)
+        assertEquals(listOf(arg), result.cells)
     }
 
     @Test
@@ -32,8 +32,8 @@ class RuleCellSinglePossibleTest {
         arg.possible.addAll(listOf(4, 5))
         val obj = RuleCellSinglePossible(arg)
         val result = obj.run()
-        assertEquals(emptyList<Cell>(), result)
-        assertFalse(obj.updated)
+        assertFalse(result.updated)
+        assertEquals(emptyList<Cell>(), result.cells)
     }
 
     @Test

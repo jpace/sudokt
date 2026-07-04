@@ -1,12 +1,17 @@
 package org.incava.sudokt.rules
 
+import org.incava.io.Qlog
+import org.incava.sudokt.Puzzle
 import org.incava.sudokt.PuzzleCells
 import org.incava.sudokt.PuzzleFactory
+import org.incava.sudokt.Rule
 import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
 import kotlin.test.assertIs
 import kotlin.test.assertNotNull
 
 class RuleGeneratorTest {
+    val puzzle: Puzzle
     val puzzleCells: PuzzleCells
 
     init {
@@ -23,7 +28,7 @@ class RuleGeneratorTest {
             || 3 |   |   || 6 | 8 |   ||   |   | 2 ||
             || 2 | 7 |   || 1 |   |   ||   |   |   ||
         """.trimIndent()
-        val puzzle = PuzzleFactory.createFromString(string)
+        puzzle = PuzzleFactory.createFromString(string)
         puzzleCells = PuzzleCells(puzzle.cells)
     }
 
@@ -34,8 +39,38 @@ class RuleGeneratorTest {
         assertIs<T>(result)
     }
 
+    inline fun <reified T : Rule> generateAndRun(level: Int) {
+        val obj = RuleGenerator()
+        val rule = obj.generate(level, puzzleCells)
+        Qlog.info("rule", rule)
+        assertNotNull(rule)
+        assertIs<T>(rule)
+        val x = rule
+        val result = rule.run()
+        Qlog.info("result", result)
+        assertEquals(1, result.cells.size)
+    }
+
     @Test
     fun generateLevel0() = runIt<RuleCellInferPossible>(0)
+
+    @Test
+    fun generateLevel0All() {
+        val generator = RuleGenerator()
+        val unprocessed = puzzle.cells.toMutableSet()
+        while (unprocessed.isNotEmpty()) {
+            val rule = generator.generate(0, puzzleCells) as RuleCellInferPossible
+            Qlog.info("rule", rule)
+            val cell = rule.cell
+            Qlog.info("cell", cell)
+            unprocessed.remove(cell)
+            if (cell.number != null) continue
+            if (cell.possible.isNotEmpty()) continue
+            val result = rule.run()
+            Qlog.info("result", result)
+            assertEquals(1, result.cells.size)
+        }
+    }
 
     @Test
     fun generateLevel1() = runIt<RuleCellSinglePossible>(1)

@@ -65,13 +65,8 @@ class PuzzleTest {
 
     fun runRule(rule: Rule): Boolean {
         // Qlog.info("rule", "${rule.javaClass.simpleName} - ${rule.description()}")
-        val result = rule.execute()
-//        Qlog.info("result", result)
-//        Qlog.info("rule.updated?", rule.updated)
-//        if (rule.updated) {
-//            Qlog.info("rule.description", rule.description())
-//        }
-        return rule.updated
+        val result = rule.run()
+        return result.updated
     }
 
     @Test

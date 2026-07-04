@@ -1,6 +1,7 @@
 package org.incava.sudokt.rules
 
 import org.incava.sudokt.Cell
+import org.incava.sudokt.RuleResult
 
 // level 1 rule
 class RuleCellSinglePossible(cell: Cell) : RuleCell(cell) {
@@ -15,15 +16,14 @@ class RuleCellSinglePossible(cell: Cell) : RuleCell(cell) {
         for cell ${cell.position} without a defined number and with only one possibility ${cell.number}, define the number as ${cell.number}        
     """.trimIndent()
 
-    override fun run(): List<Cell> {
-        if (cell.number != null) return emptyList()
+    override fun run(): RuleResult {
+        if (cell.number != null) return RuleResult(false)
         val possibles = cell.possible
-        if (possibles.size != 1) return emptyList()
+        if (possibles.size != 1) return RuleResult(false)
         val number = possibles.first()
         cell.setNumber(number)
         cell.removePossible(number)
-        setUpdated(cell, description(cell))
-        return listOf(cell)
+        return RuleResult(true, description(cell), listOf(cell))
     }
 
     companion object {

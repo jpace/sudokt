@@ -1,6 +1,7 @@
 package org.incava.sudokt.rules
 
 import org.incava.sudokt.Cell
+import org.incava.sudokt.RuleResult
 
 class RuleNakedPair(x: Cell, y: Cell, unitCells: List<Cell>) : RuleCellPair(x, y, unitCells) {
     override fun description() = """
@@ -8,28 +9,27 @@ class RuleNakedPair(x: Cell, y: Cell, unitCells: List<Cell>) : RuleCellPair(x, y
         are not possibility in other cells, set the possibilities of X and Y to only (number1, number2)"
     """.trimIndent()
 
-    fun description(matching: Set<Int>, other: Cell) = """
+    fun description(matching: Set<Int>, others: List<Cell>) = """
         Naked Pair
         for cells ${x.position} and ${y.position} in the same unit U with two identical possibilities $matching of size
-        two, that, removing all of those possibilities from the other cell ${other.position} in the unit"
+        two, that, removing all of those possibilities from the other cells ${others.map { it.position }.joinToString(", ")} in the unit"
     """.trimIndent()
 
-    override fun run(x: Cell, y: Cell, unitCells: List<Cell>): List<Cell> {
+    override fun run(): RuleResult {
         if (x.possible.size != 2 && y.possible.size != 2) {
-            return emptyList()
+            return RuleResult(false)
         } else if (x.possible == y.possible) {
             val updatedCells = mutableListOf<Cell>()
             unitCells.forEach { other ->
                 if (other != x && other != y) {
                     if (other.removePossibles(x.possible)) {
-                        setUpdated(other, description(x.possible, other))
                         updatedCells += other
                     }
                 }
             }
-            return updatedCells
+            return RuleResult(true, description(x.possible, updatedCells), updatedCells)
         } else {
-            return emptyList()
+            return RuleResult(false)
         }
     }
 }

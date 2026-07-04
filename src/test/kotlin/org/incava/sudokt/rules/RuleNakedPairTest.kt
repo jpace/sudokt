@@ -17,7 +17,7 @@ class RuleNakedPairTest {
         val obj = RuleNakedPair(x, y, unitCells)
         val result = obj.run()
         Qlog.info("result", result)
-        assertEquals(listOf(z), result)
+        assertEquals(listOf(z), result.cells)
         assertEquals(setOf(1, 2), z.possible)
         assertEquals(setOf(3, 4), unitCells[2].possible)
     }
