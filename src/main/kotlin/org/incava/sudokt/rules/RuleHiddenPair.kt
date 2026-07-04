@@ -13,7 +13,7 @@ class RuleHiddenPair(x: Cell, y: Cell, unitCells: List<Cell>) : RuleCellPair(x, 
     fun description(matching: Set<Int>) = """
         Hidden Pair
         for cells ${x.position} and ${y.position} in the same unit U with two intersecting possibilities $matching that
-        are not possibility in other cells, set the possibilities of ${x.position} and ${y.position} to only $matching"
+        are not possibilities in other cells, set the possibilities of ${x.position} and ${y.position} to only $matching"
     """.trimIndent()
 
     override fun run(): RuleResult {
@@ -24,16 +24,12 @@ class RuleHiddenPair(x: Cell, y: Cell, unitCells: List<Cell>) : RuleCellPair(x, 
             Qlog.info("inBoth", inBoth)
             return if (inBoth.size == 2) {
                 val updatedCells = mutableListOf<Cell>()
-                val inOthers = (unitCells - x - y).any { (it.possible intersect inBoth).isNotEmpty() }
+                val inOthers = (unitCells - x - y).any { containsAny(it.possible,inBoth) }
                 Qlog.info("inOthers", inOthers)
                 if (!inOthers) {
                     // the possibility might already be the same as inBoth
-                    if (x.setPossibles(inBoth)) {
-                        updatedCells += x
-                    }
-                    if (y.setPossibles(inBoth)) {
-                        updatedCells += y
-                    }
+                    updatePossibles(x, inBoth, updatedCells)
+                    updatePossibles(y, inBoth, updatedCells)
                 }
                 RuleResult(true, description(inBoth), updatedCells)
             } else {
@@ -41,4 +37,12 @@ class RuleHiddenPair(x: Cell, y: Cell, unitCells: List<Cell>) : RuleCellPair(x, 
             }
         }
     }
+
+    fun updatePossibles(cell: Cell, possibles: Set<Int>, updated: MutableList<Cell>) {
+        if (cell.setPossibles(possibles)) {
+            updated += cell
+        }
+    }
+
+    fun <T> containsAny(x: Collection<T>, y: Collection<T>) = y.any { x.contains(it) }
 }
