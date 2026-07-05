@@ -1,6 +1,5 @@
 package org.incava.sudokt.rules.generators
 
-import org.incava.io.Qlog
 import org.incava.sudokt.Cell
 import org.incava.sudokt.PuzzleCells
 import org.incava.sudokt.rules.RuleCellUnit
@@ -19,7 +18,6 @@ class RuleGeneratorUnitCellSingle {
         val cell = unitCells.random()
         val ctor = cls.getConstructor(Cell::class.java, List::class.java, String::class.java)
         val instance = ctor.newInstance(cell, unitCells, unitType) as RuleCellUnit
-        Qlog.info("instance", instance)
         return instance
     }
 

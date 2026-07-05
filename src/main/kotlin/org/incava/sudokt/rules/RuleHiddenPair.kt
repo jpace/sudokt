@@ -4,7 +4,7 @@ import org.incava.io.Qlog
 import org.incava.sudokt.Cell
 import org.incava.sudokt.RuleResult
 
-class RuleHiddenPair(x: Cell, y: Cell, unitCells: List<Cell>) : RuleCellPair(x, y, unitCells) {
+class RuleHiddenPair(x: Cell, y: Cell, unitCells: List<Cell>, val unitType: String) : RuleCellPair(x, y, unitCells) {
     override fun description() = """
         for cells X and Y in the same unit U with two intersecting possibilities (number1, number2) that
         are not possibility in other cells, set the possibilities of X and Y to only (number1, number2)"
@@ -12,7 +12,7 @@ class RuleHiddenPair(x: Cell, y: Cell, unitCells: List<Cell>) : RuleCellPair(x, 
 
     fun description(matching: Set<Int>) = """
         Hidden Pair
-        for cells ${x.position} and ${y.position} in the same unit U with two intersecting possibilities $matching that
+        for cells ${x.position} and ${y.position} in the same unit $unitType with two intersecting possibilities $matching that
         are not possibilities in other cells, set the possibilities of ${x.position} and ${y.position} to only $matching"
     """.trimIndent()
 

@@ -12,7 +12,7 @@ class RuleCellRemoveNumberFromUnitPossibles(cell: Cell, unitCells: List<Cell>, v
 
     fun description(toCells: List<Cell>) = """
         Remove Number from Possibles in Unit $unitType
-        from cell ${cell.position} with the defined number ${cell.number}, remove that possibility from cell ${toCells.map { it.position }.joinToString("")}} in X's $unitType"
+        from cell ${cell.position} with the defined number ${cell.number}, remove that possibility from cell ${toCells.map { it.position }.joinToString("")} in X's $unitType"
     """.trimIndent()
 
     override fun run(): RuleResult {

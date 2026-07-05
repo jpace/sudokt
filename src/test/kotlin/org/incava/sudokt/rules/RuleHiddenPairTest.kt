@@ -1,6 +1,5 @@
 package org.incava.sudokt.rules
 
-import org.incava.io.Qlog
 import org.incava.sudokt.Cell
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -13,7 +12,7 @@ class RuleHiddenPairTest {
         // 3, 4 in common:
         val x = unitCells[1].also { it.possible = mutableSetOf(3, 4, 5, 6) }
         val y = unitCells[2].also { it.possible = mutableSetOf(1, 2, 3, 4) }
-        val obj = RuleHiddenPair(x, y, unitCells)
+        val obj = RuleHiddenPair(x, y, unitCells, "row")
         val result = obj.run()
         assertEquals(listOf(unitCells[1], unitCells[2]), result.cells)
         assertEquals(setOf(3, 4), unitCells[1].possible)

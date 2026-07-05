@@ -2,13 +2,13 @@ package org.incava.sudokt.view
 
 import org.incava.sudokt.Cell
 import org.incava.sudokt.Puzzle
+import java.io.PrintStream
 
-class PuzzleView1Line(puzzle: Puzzle, showId: Boolean, showNumber: Boolean, showPossible: Boolean) :
-    PuzzleView(puzzle, showId, showNumber, showPossible) {
+class PuzzleView1Line(puzzle: Puzzle, showId: Boolean, showNumber: Boolean, showPossible: Boolean, out: PrintStream = System.out) :
+    PuzzleView(puzzle, showId, showNumber, showPossible, out) {
 
     override fun show(highlight: List<Cell>) {
-        val header = (0 until numColumns).map { it.toString() to false }
-        // printRow("", "", header)
+        // out.print("\u001b[H\u001b[2J")
         (0 until numRows).forEach { row ->
             if (row % 3 == 0) {
                 printBreak("", '=')

@@ -1,6 +1,7 @@
 package org.incava.sudokt
 
 import org.incava.sudokt.test.TestFixture
+import org.incava.sudokt.view.PuzzleView1Line
 import kotlin.test.Test
 
 class PuzzleFactoryTest {
@@ -21,6 +22,8 @@ class PuzzleFactoryTest {
         """.trimIndent()
         val obj = PuzzleFactory.createFromString(string)
         TestFixture.checkPuzzle(obj)
+        val view = PuzzleView1Line(obj, false, showNumber = true, showPossible = true)
+        view.show()
     }
 
     @Test

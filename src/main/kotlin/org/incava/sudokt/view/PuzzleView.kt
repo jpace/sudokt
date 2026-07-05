@@ -3,12 +3,14 @@ package org.incava.sudokt.view
 import org.incava.sudokt.Cell
 import org.incava.sudokt.Puzzle
 import org.incava.sudokt.Util
+import java.io.PrintStream
 
-abstract class PuzzleView(val puzzle: Puzzle, val showId: Boolean, val showNumber: Boolean, val showPossible: Boolean) {
+abstract class PuzzleView(puzzle: Puzzle, val showId: Boolean, val showNumber: Boolean, val showPossible: Boolean, val out: PrintStream = System.out) {
     val cells = puzzle.cells
     val numRows = 9
     val numColumns = 9
-    val rowWidth = if (showPossible) 12 else 8
+    // color output uses a lot of space:
+    val rowWidth = if (showPossible) 24 else 18
 
     fun show() {
         show(emptyList())
@@ -42,18 +44,25 @@ abstract class PuzzleView(val puzzle: Puzzle, val showId: Boolean, val showNumbe
 
     fun printRow(lhsMessage: String?, strings: List<Pair<String, Boolean>>) {
         if (lhsMessage != null) {
-            System.out.printf("%s", lhsMessage)
+            out.printf("%s", lhsMessage)
         }
+        val useColor = false
         val formatted = strings.map { (str, highlight) ->
             if (highlight) {
-                val width = rowWidth - 4
-                String.format(">  %-$width.${width}s  <", str)
+                if (useColor) {
+                    val width = rowWidth - 4
+                    val color = ColorString(str).foreground(4, 215, 4).padEnd(width)
+                    String.format(" %s     ", color)
+                } else {
+                    val width = rowWidth - 4
+                    String.format(">> %-$width.${width}s <<", str)
+                }
             } else {
                 String.format(" %-$rowWidth.${rowWidth}s ", str)
             }
         }
         val boxed = listOf(0, 3, 6).joinToString("||") { formatted.subList(it, it + 3).joinToString("|") }
-        println("||$boxed||")
+        out.println("||$boxed||")
     }
 
     fun printCells(highlight: List<Cell>, row: Int, message: String, supplier: (Cell) -> Any?) {

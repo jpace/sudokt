@@ -3,13 +3,77 @@
  */
 package org.incava.sudokt
 
+import org.incava.io.Qlog
+import org.incava.sudokt.puzzle.PuzzleSolver
+import org.incava.sudokt.puzzle.PuzzleSolverWatcher
+import org.incava.sudokt.rules.RuleCellInferPossible
+import org.incava.sudokt.rules.RuleCellRemoveNumberFromUnitPossibles
+import org.incava.sudokt.view.PuzzleView1Line
+
 class App {
-    val greeting: String
-        get() {
-            return "Hello world."
+    val string = """
+            ||   | 8 | 1 ||   |   | 6 || 7 |   | 5 ||
+            || 5 | 6 | 3 || 8 |   |   ||   | 2 |   ||
+            ||   |   |   || 3 | 9 | 5 || 8 |   |   ||
+            
+            ||   |   | 5 ||   | 6 | 7 || 3 | 1 |   ||
+            ||   | 9 | 8 ||   |   |   || 6 |   |   ||
+            ||   |   |   || 5 | 1 | 8 ||   |   |   ||
+
+            || 8 |   | 6 ||   | 2 |   || 5 | 9 | 3 ||
+            || 3 |   |   || 6 | 8 |   ||   |   | 2 ||
+            || 2 | 7 |   || 1 |   |   ||   |   |   ||
+        """.trimIndent()
+    val puzzle = PuzzleFactory.createFromString(string)
+    val view = PuzzleView1Line(puzzle, false, showNumber = true, showPossible = true)
+
+    fun run() {
+        view.show()
+        println("running rules...")
+        val watcher = object : PuzzleSolverWatcher {
+            val results: MutableList<RuleResult> = mutableListOf()
+            var verbose = false
+            val cellsProcessed = mutableListOf<Cell>()
+            override fun onRuleStart(cls: Class<out Rule>) {
+                if (cls == RuleCellInferPossible::class.java) {
+                    verbose = true
+                }
+            }
+
+            override fun onRuleEnd(cls: Class<out Rule>) {
+                val updatedCells = results.flatMap { it.cells }
+                if (verbose || updatedCells.isNotEmpty()) {
+                    view.show(updatedCells)
+                }
+                cellsProcessed.clear()
+                results.clear()
+                verbose = false
+            }
+
+            override fun onRuleExecuted(rule: Rule, result: RuleResult) {
+                val x = rule is RuleCellRemoveNumberFromUnitPossibles
+                if (rule is RuleCellRemoveNumberFromUnitPossibles) {
+                    cellsProcessed += rule.cell
+                }
+                if (result.updated) {
+                    Qlog.info("result.description", result.description)
+                }
+                results += result
+            }
         }
+
+        Thread.sleep(100)
+        val solver = PuzzleSolver(puzzle, watcher)
+        Thread.sleep(100)
+
+        solver.run()
+
+        Thread.sleep(500)
+        view.show()
+    }
 }
 
 fun main(args: Array<String>) {
-    println(App().greeting)
+    val app = App()
+    app.run()
 }

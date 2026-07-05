@@ -1,6 +1,5 @@
 package org.incava.sudokt.rules
 
-import org.incava.io.Qlog
 import org.incava.sudokt.PuzzleCells
 import org.incava.sudokt.Rule
 import org.incava.sudokt.rules.generators.RuleGeneratorCellPair
@@ -17,7 +16,6 @@ class RuleGenerator {
 
     fun generate(level: Int, puzzleCells: PuzzleCells): Rule? {
         val rule = rules[level]
-        Qlog.info("rule", rule.simpleName)
         asRule<RuleCell>(rule)?.let {
             val generator = RuleGeneratorSingleCell()
             return generator.generate(puzzleCells, it)
