@@ -65,7 +65,7 @@ class RuleGeneratorTest {
             Qlog.info("cell", cell)
             unprocessed.remove(cell)
             if (cell.number != null) continue
-            if (cell.possible.isNotEmpty()) continue
+            if (cell.possible.values.isNotEmpty()) continue
             val result = rule.run()
             Qlog.info("result", result)
             assertEquals(1, result.cells.size)
@@ -79,5 +79,8 @@ class RuleGeneratorTest {
     fun generateLevel2() = runIt<RuleCellRemoveNumberFromUnitPossibles>(2)
 
     @Test
-    fun generateLevel3() = runIt<RuleHiddenPair>(3)
+    fun generateLevel3() = runIt<RuleNakedPair>(3)
+
+    @Test
+    fun generateLevel4() = runIt<RuleHiddenPair>(4)
 }

@@ -26,7 +26,7 @@ abstract class PuzzleView(puzzle: Puzzle, val showId: Boolean, val showNumber: B
             if (possible.isEmpty()) {
                 "[?]"
             } else {
-                "[${cell.possible.joinToString(",")}]"
+                "[${cell.possible.values.joinToString(",")}]"
             }
         }
     }

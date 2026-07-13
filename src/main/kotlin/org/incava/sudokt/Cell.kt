@@ -2,7 +2,7 @@ package org.incava.sudokt
 
 class Cell(val id: Int) {
     var number: Int? = null
-    var possible = mutableSetOf<Int>()
+    val possible = Possibles()
     val position = Position(id)
 
     fun removePossible(num: Int): Boolean {
@@ -10,7 +10,7 @@ class Cell(val id: Int) {
     }
 
     fun removePossibles(numbers: Collection<Int>): Boolean {
-        return numbers.fold(false) { acc, num -> removePossible(num) || acc }
+        return possible.remove(numbers)
     }
 
     fun setNumber(number: Int) {
@@ -18,14 +18,7 @@ class Cell(val id: Int) {
         possible.clear()
     }
 
-    fun setPossibles(possible: Set<Int>): Boolean {
-        return if (this.possible == possible) {
-            false
-        } else {
-            this.possible = possible.toMutableSet()
-            true
-        }
-    }
+    fun setPossibles(possible: Set<Int>): Boolean = this.possible.replace(possible)
 
     override fun toString(): String {
         return "Cell(id=$id, possible=$possible, number=${number}, position=${position})"

@@ -11,6 +11,7 @@ class RuleGenerator {
         RuleCellInferPossible::class.java,
         RuleCellSinglePossible::class.java,
         RuleCellRemoveNumberFromUnitPossibles::class.java,
+        RuleNakedPair::class.java,
         RuleHiddenPair::class.java,
     )
 

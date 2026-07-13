@@ -20,7 +20,7 @@ class RuleCellSinglePossible(cell: Cell) : RuleCell(cell) {
         if (cell.number != null) return RuleResult(false)
         val possibles = cell.possible
         if (possibles.size != 1) return RuleResult(false)
-        val number = possibles.first()
+        val number = possibles.first
         cell.setNumber(number)
         cell.removePossible(number)
         return RuleResult(true, description(cell), listOf(cell))

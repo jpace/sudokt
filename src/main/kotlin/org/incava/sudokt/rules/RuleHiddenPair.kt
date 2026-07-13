@@ -1,6 +1,5 @@
 package org.incava.sudokt.rules
 
-import org.incava.io.Qlog
 import org.incava.sudokt.Cell
 import org.incava.sudokt.RuleResult
 
@@ -12,26 +11,28 @@ class RuleHiddenPair(x: Cell, y: Cell, unitCells: List<Cell>, val unitType: Stri
 
     fun description(matching: Set<Int>) = """
         Hidden Pair
-        for cells ${x.position} and ${y.position} in the same unit $unitType with two intersecting possibilities $matching that
-        are not possibilities in other cells, set the possibilities of ${x.position} and ${y.position} to only $matching"
+        for cells ${x.position} and ${y.position} in the same $unitType with two intersecting possibilities $matching that
+        are not possibilities in other cells, set the possibilities of ${x.position} and ${y.position} to only $matching
     """.trimIndent()
 
     override fun run(): RuleResult {
         if (x.possible.isEmpty() || y.possible.isEmpty()) {
             return RuleResult(false)
         } else {
-            val inBoth = x.possible intersect y.possible
-            Qlog.info("inBoth", inBoth)
+            val inBoth = x.possible.intersect(y.possible)
             return if (inBoth.size == 2) {
                 val updatedCells = mutableListOf<Cell>()
-                val inOthers = (unitCells - x - y).any { containsAny(it.possible,inBoth) }
-                Qlog.info("inOthers", inOthers)
+                val inOthers = (unitCells - x - y).any { containsAny(it.possible.values, inBoth) }
                 if (!inOthers) {
                     // the possibility might already be the same as inBoth
                     updatePossibles(x, inBoth, updatedCells)
                     updatePossibles(y, inBoth, updatedCells)
                 }
-                RuleResult(true, description(inBoth), updatedCells)
+                if (updatedCells.isEmpty()) {
+                    RuleResult(false)
+                } else {
+                    RuleResult(true, description(inBoth), updatedCells)
+                }
             } else {
                 RuleResult(false)
             }

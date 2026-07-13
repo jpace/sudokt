@@ -10,22 +10,24 @@ import org.incava.sudokt.rules.RuleGenerator
 
 open class PuzzleSolver(val puzzle: Puzzle, val watcher: PuzzleSolverWatcher? = null) {
     val generator = RuleGenerator()
+    val maxAttempts = 1_000_000
     val puzzleCells = PuzzleCells(puzzle.cells)
     var currentLevel = 1
+    var attempts = 0
 
     fun run() {
         // this needs to be run on all cells before any other rules can be applied
         println("running rule 1: infer possible")
         runInferPossible()
 
-        repeat(10000) {
-            Qlog.info("iteration", it)
+        while (attempts < maxAttempts) {
+            Qlog.info("attempts", attempts)
             Qlog.info("currentLevel", currentLevel)
             runRule()
             Qlog.info("currentLevel", currentLevel)
             if (isSolved()) {
                 Qlog.info("solved!")
-                Qlog.info("iteration", it)
+                Qlog.info("attempts", attempts)
                 return
             } else if (currentLevel == generator.rules.size) {
                 Qlog.info("ending at level $currentLevel")
@@ -51,7 +53,8 @@ open class PuzzleSolver(val puzzle: Puzzle, val watcher: PuzzleSolverWatcher? = 
     fun runRule() {
         println("running rule $currentLevel")
         var failures = 0
-        while (failures < 200) {
+        while (failures < 500) {
+            attempts++
             val rule = generator.generate(currentLevel, puzzleCells) ?: continue
             watcher?.onRuleStart(rule.javaClass)
             if (runRule(rule).updated) {
@@ -72,7 +75,8 @@ open class PuzzleSolver(val puzzle: Puzzle, val watcher: PuzzleSolverWatcher? = 
         val result = rule.run()
         watcher?.onRuleExecuted(rule, result)
         if (result.updated) {
-            println("cell(s) ${result.cells} updated for rule (${rule.javaClass.simpleName} ${result.description}")
+            println("cell(s) ${result.cells} updated for rule (${rule.javaClass.simpleName}")
+            println(result.description)
         }
         return result
     }

@@ -4,6 +4,7 @@
 package org.incava.sudokt
 
 import org.incava.io.Qlog
+import org.incava.sudokt.app.Puzzles
 import org.incava.sudokt.puzzle.PuzzleSolver
 import org.incava.sudokt.puzzle.PuzzleSolverWatcher
 import org.incava.sudokt.rules.RuleCellInferPossible
@@ -11,20 +12,7 @@ import org.incava.sudokt.rules.RuleCellRemoveNumberFromUnitPossibles
 import org.incava.sudokt.view.PuzzleView1Line
 
 class App {
-    val string = """
-            ||   | 8 | 1 ||   |   | 6 || 7 |   | 5 ||
-            || 5 | 6 | 3 || 8 |   |   ||   | 2 |   ||
-            ||   |   |   || 3 | 9 | 5 || 8 |   |   ||
-            
-            ||   |   | 5 ||   | 6 | 7 || 3 | 1 |   ||
-            ||   | 9 | 8 ||   |   |   || 6 |   |   ||
-            ||   |   |   || 5 | 1 | 8 ||   |   |   ||
-
-            || 8 |   | 6 ||   | 2 |   || 5 | 9 | 3 ||
-            || 3 |   |   || 6 | 8 |   ||   |   | 2 ||
-            || 2 | 7 |   || 1 |   |   ||   |   |   ||
-        """.trimIndent()
-    val puzzle = PuzzleFactory.createFromString(string)
+    val puzzle = PuzzleFactory.createFromString(Puzzles.fromGym)
     val view = PuzzleView1Line(puzzle, false, showNumber = true, showPossible = true)
 
     fun run() {

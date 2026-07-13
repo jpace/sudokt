@@ -19,7 +19,7 @@ class RuleCellSinglePossibleTest {
     @Test
     fun runWithNumberNotSetOnePossibility() {
         val arg = Cell(1)
-        arg.possible.add(4)
+        arg.setPossibles(setOf(4))
         val obj = RuleCellSinglePossible(arg)
         val result = obj.run()
         assertTrue(result.updated)
@@ -29,7 +29,7 @@ class RuleCellSinglePossibleTest {
     @Test
     fun runWithNumberNotSetTwoPossibilities() {
         val arg = Cell(1)
-        arg.possible.addAll(listOf(4, 5))
+        arg.setPossibles(setOf(4, 5))
         val obj = RuleCellSinglePossible(arg)
         val result = obj.run()
         assertFalse(result.updated)
