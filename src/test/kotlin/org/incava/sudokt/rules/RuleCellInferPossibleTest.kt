@@ -53,9 +53,4 @@ class RuleCellInferPossibleTest {
         assertEquals(0, arg.possible.size)
         assertEquals("", result.description)
     }
-
-    @Test
-    fun level() {
-        assertEquals(1, RuleCellInferPossible.LEVEL)
-    }
 }

@@ -73,7 +73,7 @@ class RuleGeneratorTest {
     }
 
     @Test
-    fun generateLevel1() = runIt<RuleCellSinglePossible>(1)
+    fun generateLevel1() = runIt<RuleCellNakedSingle>(1)
 
     @Test
     fun generateLevel2() = runIt<RuleCellRemoveNumberFromUnitPossibles>(2)

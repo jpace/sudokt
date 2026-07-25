@@ -4,7 +4,7 @@ import org.incava.sudokt.Cell
 import org.incava.sudokt.RuleResult
 
 // level 1 rule
-class RuleCellSinglePossible(cell: Cell) : RuleCell(cell) {
+class RuleCellNakedSingle(cell: Cell) : RuleCell(cell) {
     val level = LEVEL
 
     override fun description() = """

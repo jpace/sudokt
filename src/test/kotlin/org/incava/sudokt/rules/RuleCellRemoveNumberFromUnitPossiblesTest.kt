@@ -1,11 +1,11 @@
 package org.incava.sudokt.rules
 
 import org.incava.sudokt.Cell
-import org.incava.sudokt.PuzzleCells
-import org.incava.sudokt.test.TestFixture.createCells
-import org.junit.jupiter.api.assertAll
 import kotlin.test.Test
 import kotlin.test.assertEquals
+
+fun <T> Collection<T>.second(): T = this.elementAt(1)
+fun <T> Collection<T>.third(): T = this.elementAt(2)
 
 class RuleCellRemoveNumberFromUnitPossiblesTest {
     @Test
@@ -14,15 +14,29 @@ class RuleCellRemoveNumberFromUnitPossiblesTest {
             Cell(0), Cell(1), Cell(2), Cell(3), Cell(4), Cell(5), Cell(6), Cell(7), Cell(8)
         )
         unitCells.first().setPossibles((1 .. 4).toSet())
-        unitCells[2].setPossibles((3 .. 7).toSet())
+        unitCells.third().setPossibles((3 .. 7).toSet())
         unitCells.last().setPossibles((5 .. 8).toSet())
-        val cell = unitCells[1]
+        val cell = unitCells.second()
         cell.number = 3
         val obj = RuleCellRemoveNumberFromUnitPossibles(cell, unitCells, "row")
         val result = obj.run()
-        assertEquals(listOf(unitCells.first(), unitCells[2]), result.cells)
+        assertEquals(listOf(unitCells.first(), unitCells.third()), result.cells)
         assertEquals(setOf(1, 2, 4), unitCells.first().possible.values)
-        assertEquals(setOf(4, 5, 6, 7), unitCells[2].possible.values)
+        assertEquals(setOf(4, 5, 6, 7), unitCells.third().possible.values)
         assertEquals((5..8).toSet(), unitCells.last().possible.values)
+    }
+
+    @Test
+    fun runWithoutUpdate() {
+        val unitCells = (0 .. 8).map { Cell(it) }
+        unitCells.first().setPossibles((1 .. 4).toSet())
+        unitCells.last().setPossibles((1 .. 4).toSet())
+        val cell = unitCells.second()
+        cell.number = 5
+        val obj = RuleCellRemoveNumberFromUnitPossibles(cell, unitCells, "row")
+        val result = obj.run()
+        assertEquals(listOf(), result.cells)
+        assertEquals((1 .. 4).toSet(), unitCells.first().possible.values)
+        assertEquals((1 .. 4).toSet(), unitCells.last().possible.values)
     }
 }

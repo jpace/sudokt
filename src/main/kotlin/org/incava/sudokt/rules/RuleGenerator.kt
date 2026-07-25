@@ -9,7 +9,7 @@ import org.incava.sudokt.rules.generators.RuleGeneratorUnitCellSingle
 class RuleGenerator {
     val rules = listOf(
         RuleCellInferPossible::class.java,
-        RuleCellSinglePossible::class.java,
+        RuleCellNakedSingle::class.java,
         RuleCellRemoveNumberFromUnitPossibles::class.java,
         RuleNakedPair::class.java,
         RuleHiddenPair::class.java,

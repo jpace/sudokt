@@ -3,7 +3,7 @@ package org.incava.sudokt
 import org.incava.io.Qlog
 import org.incava.sudokt.rules.RuleCellInferPossible
 import org.incava.sudokt.rules.RuleCellRemoveNumberFromUnitPossibles
-import org.incava.sudokt.rules.RuleCellSinglePossible
+import org.incava.sudokt.rules.RuleCellNakedSingle
 import org.incava.sudokt.test.TestFixture
 import org.incava.sudokt.view.PuzzleView1Line
 import kotlin.test.Test
@@ -34,7 +34,7 @@ class PuzzleTest {
             var singleUpdated = false
             obj.cells.forEach {
                 // level 2
-                val rule = RuleCellSinglePossible(it)
+                val rule = RuleCellNakedSingle(it)
                 singleUpdated = runRule(rule) || singleUpdated
                 // don't show each time
             }
