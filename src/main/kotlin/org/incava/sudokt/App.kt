@@ -7,8 +7,8 @@ import org.incava.io.Qlog
 import org.incava.sudokt.app.Puzzles
 import org.incava.sudokt.puzzle.PuzzleSolver
 import org.incava.sudokt.puzzle.PuzzleSolverWatcher
-import org.incava.sudokt.rules.RuleCellInferPossible
-import org.incava.sudokt.rules.RuleCellRemoveNumberFromUnitPossibles
+import org.incava.sudokt.rules.InferPossible
+import org.incava.sudokt.rules.PrunePeers
 import org.incava.sudokt.view.PuzzleView1Line
 
 class App {
@@ -23,7 +23,7 @@ class App {
             var verbose = false
             val cellsProcessed = mutableListOf<Cell>()
             override fun onRuleStart(cls: Class<out Rule>) {
-                if (cls == RuleCellInferPossible::class.java) {
+                if (cls == InferPossible::class.java) {
                     verbose = true
                 }
             }
@@ -39,8 +39,8 @@ class App {
             }
 
             override fun onRuleExecuted(rule: Rule, result: RuleResult) {
-                val x = rule is RuleCellRemoveNumberFromUnitPossibles
-                if (rule is RuleCellRemoveNumberFromUnitPossibles) {
+                val x = rule is PrunePeers
+                if (rule is PrunePeers) {
                     cellsProcessed += rule.cell
                 }
                 if (result.updated) {

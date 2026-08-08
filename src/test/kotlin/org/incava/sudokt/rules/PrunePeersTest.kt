@@ -7,7 +7,7 @@ import kotlin.test.assertEquals
 fun <T> Collection<T>.second(): T = this.elementAt(1)
 fun <T> Collection<T>.third(): T = this.elementAt(2)
 
-class RuleCellRemoveNumberFromUnitPossiblesTest {
+class PrunePeersTest {
     @Test
     fun checkUnitCells() {
         val unitCells = listOf(
@@ -18,7 +18,7 @@ class RuleCellRemoveNumberFromUnitPossiblesTest {
         unitCells.last().setPossibles((5 .. 8).toSet())
         val cell = unitCells.second()
         cell.number = 3
-        val obj = RuleCellRemoveNumberFromUnitPossibles(cell, unitCells, "row")
+        val obj = PrunePeers(cell, unitCells, "row")
         val result = obj.run()
         assertEquals(listOf(unitCells.first(), unitCells.third()), result.cells)
         assertEquals(setOf(1, 2, 4), unitCells.first().possible.values)
@@ -33,7 +33,7 @@ class RuleCellRemoveNumberFromUnitPossiblesTest {
         unitCells.last().setPossibles((1 .. 4).toSet())
         val cell = unitCells.second()
         cell.number = 5
-        val obj = RuleCellRemoveNumberFromUnitPossibles(cell, unitCells, "row")
+        val obj = PrunePeers(cell, unitCells, "row")
         val result = obj.run()
         assertEquals(listOf(), result.cells)
         assertEquals((1 .. 4).toSet(), unitCells.first().possible.values)

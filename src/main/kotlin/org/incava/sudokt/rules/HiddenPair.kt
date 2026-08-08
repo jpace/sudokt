@@ -3,7 +3,7 @@ package org.incava.sudokt.rules
 import org.incava.sudokt.Cell
 import org.incava.sudokt.RuleResult
 
-class RuleHiddenPair(x: Cell, y: Cell, unitCells: List<Cell>, val unitType: String) : RuleCellPair(x, y, unitCells) {
+class HiddenPair(x: Cell, y: Cell, unitCells: List<Cell>, val unitType: String) : PairRule(x, y, unitCells) {
     override fun description() = description("X", "Y", "Unit", "[number1, number2]")
 
     fun description(x: String, y: String, unitType: String, matching: String) = """

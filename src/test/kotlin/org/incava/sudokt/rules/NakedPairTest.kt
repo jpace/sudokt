@@ -6,7 +6,7 @@ import org.junit.jupiter.api.assertAll
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class RuleNakedPairTest {
+class NakedPairTest {
     @Test
     fun checkUnitCells() {
         val defaultPossible = (0..8).toSet()
@@ -16,7 +16,7 @@ class RuleNakedPairTest {
         val x = unitCells[1].also { it.setPossibles(setOf(3, 4)) }
         val y = unitCells[2].also { it.setPossibles(setOf(3, 4)) }
         val otherCells = unitCells - x - y
-        val obj = RuleNakedPair(x, y, unitCells, "row")
+        val obj = NakedPair(x, y, unitCells, "row")
         Qlog.info("obj", obj)
         Qlog.info("unitCells", unitCells)
         val result = obj.run()
@@ -48,7 +48,7 @@ class RuleNakedPairTest {
         val x = unitCells[1].also { it.setPossibles(setOf(3, 4)) }
         val y = unitCells[2].also { it.setPossibles(setOf(3, 4)) }
         val z = unitCells[3].also { it.setPossibles(setOf(1, 2, 3, 4)) }
-        val obj = RuleNakedPair(x, y, unitCells, "row")
+        val obj = NakedPair(x, y, unitCells, "row")
         val result = obj.run()
         Qlog.info("result", result)
         assertEquals(listOf(z), result.cells)

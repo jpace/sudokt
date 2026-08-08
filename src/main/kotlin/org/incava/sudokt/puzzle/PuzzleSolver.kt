@@ -5,7 +5,7 @@ import org.incava.sudokt.Puzzle
 import org.incava.sudokt.PuzzleCells
 import org.incava.sudokt.Rule
 import org.incava.sudokt.RuleResult
-import org.incava.sudokt.rules.RuleCellInferPossible
+import org.incava.sudokt.rules.InferPossible
 import org.incava.sudokt.rules.RuleGenerator
 
 open class PuzzleSolver(val puzzle: Puzzle, val watcher: PuzzleSolverWatcher? = null) {
@@ -40,14 +40,14 @@ open class PuzzleSolver(val puzzle: Puzzle, val watcher: PuzzleSolverWatcher? = 
     fun isSolved() = puzzle.cells.all { it.number != null }
 
     fun runInferPossible() {
-        watcher?.onRuleStart(RuleCellInferPossible::class.java)
+        watcher?.onRuleStart(InferPossible::class.java)
         val results: List<RuleResult> = puzzle.cells.map { cell ->
             // level 1
-            val rule = RuleCellInferPossible(cell)
+            val rule = InferPossible(cell)
             runRule(rule)
         }
         Qlog.info("results", results)
-        watcher?.onRuleEnd(RuleCellInferPossible::class.java)
+        watcher?.onRuleEnd(InferPossible::class.java)
     }
 
     fun runRule() {

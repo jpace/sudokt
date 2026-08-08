@@ -52,14 +52,14 @@ class RuleGeneratorTest {
     }
 
     @Test
-    fun generateLevel0() = runIt<RuleCellInferPossible>(0)
+    fun generateLevel0() = runIt<InferPossible>(0)
 
     @Test
     fun generateLevel0All() {
         val generator = RuleGenerator()
         val unprocessed = puzzle.cells.toMutableSet()
         while (unprocessed.isNotEmpty()) {
-            val rule = generator.generate(0, puzzleCells) as RuleCellInferPossible
+            val rule = generator.generate(0, puzzleCells) as InferPossible
             Qlog.info("rule", rule)
             val cell = rule.cell
             Qlog.info("cell", cell)
@@ -73,14 +73,35 @@ class RuleGeneratorTest {
     }
 
     @Test
-    fun generateLevel1() = runIt<RuleCellNakedSingle>(1)
+    fun generateLevel1() = runIt<NakedSingle>(1)
 
     @Test
-    fun generateLevel2() = runIt<RuleCellRemoveNumberFromUnitPossibles>(2)
+    fun generateLevel2() = runIt<PrunePeers>(2)
 
     @Test
-    fun generateLevel3() = runIt<RuleNakedPair>(3)
+    fun generateLevel3() = runIt<NakedPair>(3)
 
     @Test
-    fun generateLevel4() = runIt<RuleHiddenPair>(4)
+    fun generateLevel4() = runIt<HiddenPair>(4)
+
+    @Test
+    fun generateSingleCell() {
+        val rule = InferPossible::class.java
+        val obj = RuleGenerator()
+        val result = obj.generateSingleCell(puzzleCells, rule)
+        Qlog.info("result", result)
+        assertNotNull(result)
+        assertIs<InferPossible>(result)
+    }
+
+    @Test
+    fun generateCellPair() {
+        val rule = HiddenPair::class.java
+        val obj = RuleGenerator()
+        val result = obj.generateCellPair(puzzleCells, rule)
+        Qlog.info("result", result)
+        assertNotNull(result)
+        assertIs<HiddenPair>(result)
+    }
+
 }

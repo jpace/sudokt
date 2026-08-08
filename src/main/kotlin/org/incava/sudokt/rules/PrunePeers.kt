@@ -3,7 +3,8 @@ package org.incava.sudokt.rules
 import org.incava.sudokt.Cell
 import org.incava.sudokt.RuleResult
 
-class RuleCellRemoveNumberFromUnitPossibles(cell: Cell, unitCells: List<Cell>, val unitType: String) : RuleCellUnit(cell, unitCells) {
+// @todo - this is a propagation rule, run after a cell is solved
+class PrunePeers(cell: Cell, unitCells: List<Cell>, val unitType: String) : RuleCellUnit(cell, unitCells) {
     override fun description() = """
         from a cell X with a defined number, remove that possibility from other cells in X's $unitType"
     """.trimIndent()

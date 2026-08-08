@@ -1,9 +1,9 @@
 package org.incava.sudokt
 
 import org.incava.io.Qlog
-import org.incava.sudokt.rules.RuleCellInferPossible
-import org.incava.sudokt.rules.RuleCellRemoveNumberFromUnitPossibles
-import org.incava.sudokt.rules.RuleCellNakedSingle
+import org.incava.sudokt.rules.InferPossible
+import org.incava.sudokt.rules.PrunePeers
+import org.incava.sudokt.rules.NakedSingle
 import org.incava.sudokt.test.TestFixture
 import org.incava.sudokt.view.PuzzleView1Line
 import kotlin.test.Test
@@ -18,7 +18,7 @@ class PuzzleTest {
         val cells = PuzzleCells(obj.cells)
         obj.cells.forEach { cell ->
             // level 1
-            val rule = RuleCellInferPossible(cell)
+            val rule = InferPossible(cell)
             runRule(rule)
             // don't show each time
         }
@@ -34,7 +34,7 @@ class PuzzleTest {
             var singleUpdated = false
             obj.cells.forEach {
                 // level 2
-                val rule = RuleCellNakedSingle(it)
+                val rule = NakedSingle(it)
                 singleUpdated = runRule(rule) || singleUpdated
                 // don't show each time
             }
@@ -59,7 +59,7 @@ class PuzzleTest {
     }
 
     fun removeFromPossiblesInUnit(cell: Cell, unitCells: List<Cell>, unitType: String): Boolean {
-        val rule = RuleCellRemoveNumberFromUnitPossibles(cell, unitCells, unitType)
+        val rule = PrunePeers(cell, unitCells, unitType)
         return runRule(rule)
     }
 

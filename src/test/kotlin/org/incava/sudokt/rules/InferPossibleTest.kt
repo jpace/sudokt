@@ -7,11 +7,11 @@ import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertSame
 
-class RuleCellInferPossibleTest {
+class InferPossibleTest {
     @Test
     fun runWithNoNumberSet() {
         val arg = Cell(1)
-        val obj = RuleCellInferPossible(arg)
+        val obj = InferPossible(arg)
         val result = obj.run()
         assertTrue(result.updated)
         assertEquals(listOf(arg), result.cells)
@@ -23,7 +23,7 @@ class RuleCellInferPossibleTest {
     fun runWithNumberSet() {
         val arg = Cell(1)
         arg.number = 3
-        val obj = RuleCellInferPossible(arg)
+        val obj = InferPossible(arg)
         val result = obj.run()
         assertFalse(result.updated)
         assertEquals(emptyList(), result.cells)
@@ -33,7 +33,7 @@ class RuleCellInferPossibleTest {
     @Test
     fun runWithResultNoNumberSet() {
         val arg = Cell(1)
-        val obj = RuleCellInferPossible(arg)
+        val obj = InferPossible(arg)
         val result = obj.run()
         Qlog.info("result", result)
         assertEquals(listOf(arg), result.cells)
@@ -45,7 +45,7 @@ class RuleCellInferPossibleTest {
     @Test
     fun runWithResultNumberSet() {
         val arg = Cell(1).also { it.number = 3 }
-        val obj = RuleCellInferPossible(arg)
+        val obj = InferPossible(arg)
         val result = obj.run()
         Qlog.info("result", result)
         assertEquals(emptyList(), result.cells)

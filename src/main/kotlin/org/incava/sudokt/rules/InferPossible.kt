@@ -5,7 +5,7 @@ import org.incava.sudokt.RuleResult
 import org.incava.sudokt.impl.PuzzleData
 
 // level 1 rule
-class RuleCellInferPossible(cell: Cell) : RuleCell(cell) {
+class InferPossible(cell: Cell) : RuleCell(cell) {
     override fun description() = """
         for a cell X without a defined number, set the possible values to 1 through 9
     """.trimIndent()

@@ -5,7 +5,7 @@ import org.junit.jupiter.api.assertAll
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class RuleHiddenPairTest {
+class HiddenPairTest {
     @Test
     fun runPossiblesNotSet() {
         val defaultPossible = (0..8).toSet() - setOf(3, 4)
@@ -14,7 +14,7 @@ class RuleHiddenPairTest {
         // 3, 4 in common:
         val x = unitCells[1].also { it.setPossibles(setOf(3, 4, 5, 6)) }
         val y = unitCells[2].also { it.setPossibles(setOf(1, 2, 3, 4)) }
-        val obj = RuleHiddenPair(x, y, unitCells, "row")
+        val obj = HiddenPair(x, y, unitCells, "row")
         val result = obj.run()
         val executables = listOf(
             { assertEquals(listOf(x, y), result.cells) },
@@ -39,7 +39,7 @@ class RuleHiddenPairTest {
         // 3, 4 in common:
         val x = unitCells[1].also { it.setPossibles(setOf(3, 4)) }
         val y = unitCells[2].also { it.setPossibles(setOf(1, 2, 3, 4)) }
-        val obj = RuleHiddenPair(x, y, unitCells, "row")
+        val obj = HiddenPair(x, y, unitCells, "row")
         val result = obj.run()
         val executables = listOf(
             { assertEquals(listOf(y), result.cells) },

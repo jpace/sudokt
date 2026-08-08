@@ -3,7 +3,7 @@ package org.incava.sudokt.rules
 import org.incava.sudokt.Cell
 import org.incava.sudokt.RuleResult
 
-class RuleNakedPair(x: Cell, y: Cell, unitCells: List<Cell>, val unitType: String) : RuleCellPair(x, y, unitCells) {
+class NakedPair(x: Cell, y: Cell, unitCells: List<Cell>, val unitType: String) : PairRule(x, y, unitCells) {
     override fun description() = """
         for cells X and Y in the same unit U with two matching possibilities (number1, number2) that
         are not possibility in other cells, set the possibilities of X and Y to only (number1, number2)"
