@@ -16,19 +16,15 @@ class PrunePeers(cell: Cell, unitCells: List<Cell>, val unitType: String) : Rule
     """.trimIndent()
 
     override fun run(): RuleResult {
-        val updatedCells = mutableListOf<Cell>()
         val number = cell.number
         if (number != null) {
-            (unitCells - cell).forEach { toCell ->
-                if (toCell.removePossible(number)) {
-                    updatedCells += toCell
-                }
+            val updatedCells = (unitCells - cell).filter { toCell ->
+                toCell.removePossible(number)
+            }
+            if (updatedCells.isNotEmpty()) {
+                return RuleResult(true, description(updatedCells), updatedCells)
             }
         }
-        return if (updatedCells.isEmpty()) {
-            RuleResult(false)
-        } else {
-            RuleResult(true, description(updatedCells), updatedCells)
-        }
+        return RuleResult(false)
     }
 }

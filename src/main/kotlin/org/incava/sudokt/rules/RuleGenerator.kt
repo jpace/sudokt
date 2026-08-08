@@ -1,5 +1,6 @@
 package org.incava.sudokt.rules
 
+import org.incava.io.Qlog
 import org.incava.sudokt.Cell
 import org.incava.sudokt.PuzzleCells
 import org.incava.sudokt.Rule
@@ -10,6 +11,7 @@ class RuleGenerator {
     val rules = listOf(
         InferPossible::class.java,
         NakedSingle::class.java,
+        HiddenSingle::class.java,
         PrunePeers::class.java,
         NakedPair::class.java,
         HiddenPair::class.java,
@@ -25,6 +27,9 @@ class RuleGenerator {
         }
         asRule<RuleCellUnit>(rule)?.let {
             return generateCellUnit(puzzleCells, it)
+        }
+        asRule<HiddenSingle>(rule)?.let {
+            return generateHiddenSingle(puzzleCells, it)
         }
         throw IllegalArgumentException("Unknown rule type: $rule")
     }
@@ -45,29 +50,34 @@ class RuleGenerator {
         return ctor.newInstance(cell) as RuleCell
     }
 
+    fun getUnitFunction() = UnitFunctions().getRandom()
+
     fun generateCellPair(puzzleCells: PuzzleCells, cls: Class<out PairRule>): PairRule {
         // two cells in the same unit
         val index = Random.nextInt(9)
-        val unitFunction = UnitFunctions().getRandom()
-        val unitType = unitFunction.first
-        val unitCells = unitFunction.second(puzzleCells, index)
+        val (unitType, function) = getUnitFunction()
+        val unitCells = function(puzzleCells, index)
         val x = unitCells.random()
         val y = (unitCells - x).random()
         val ctor = cls.getConstructor(Cell::class.java, Cell::class.java, List::class.java, String::class.java)
-        val instance = ctor.newInstance(x, y, unitCells, unitType) as PairRule
-        return instance
+        return ctor.newInstance(x, y, unitCells, unitType) as PairRule
     }
 
     fun generateCellUnit(puzzleCells: PuzzleCells, cls: Class<out RuleCellUnit>): RuleCellUnit {
-        val unitPair = UnitFunctions().getRandom()
-        val unitType = unitPair.first
-        val function = unitPair.second
+        val (unitType, function) = getUnitFunction()
         // two cells in the same unit
         val index = Random.nextInt(9)
         val unitCells = function(puzzleCells, index)
         val cell = unitCells.random()
         val ctor = cls.getConstructor(Cell::class.java, List::class.java, String::class.java)
-        val instance = ctor.newInstance(cell, unitCells, unitType) as RuleCellUnit
-        return instance
+        return ctor.newInstance(cell, unitCells, unitType) as RuleCellUnit
+    }
+
+    fun generateHiddenSingle(puzzleCells: PuzzleCells, cls: Class<out HiddenSingle>): HiddenSingle {
+        val (unitType, function) = getUnitFunction()
+        val index = Random.nextInt(9)
+        val unitCells = function(puzzleCells, index)
+        val ctor = cls.getConstructor(List::class.java, String::class.java, Int::class.java)
+        return ctor.newInstance(unitCells, unitType, index + 1)
     }
 }

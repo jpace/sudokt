@@ -6,9 +6,8 @@ import org.junit.jupiter.api.Test
 
 class NakedSingleTest {
     @Test
-    fun runWithNumberSet() {
-        val arg = Cell(1)
-        arg.number = 3
+    fun `with number set`() {
+        val arg = Cell(1).apply { number = 3 }
         val obj = NakedSingle(arg)
         val result = obj.run()
         assertFalse(result.updated)
@@ -17,8 +16,7 @@ class NakedSingleTest {
 
     @Test
     fun runWithNumberNotSetOnePossibility() {
-        val arg = Cell(1)
-        arg.setPossibles(setOf(4))
+        val arg = Cell(1).apply { setPossibles(setOf(4)) }
         val obj = NakedSingle(arg)
         val result = obj.run()
         assertTrue(result.updated)
@@ -27,8 +25,7 @@ class NakedSingleTest {
 
     @Test
     fun runWithNumberNotSetTwoPossibilities() {
-        val arg = Cell(1)
-        arg.setPossibles(setOf(4, 5))
+        val arg = Cell(1).apply { setPossibles(setOf(4, 5)) }
         val obj = NakedSingle(arg)
         val result = obj.run()
         assertFalse(result.updated)

@@ -5,7 +5,10 @@ import org.incava.sudokt.Puzzle
 import org.incava.sudokt.PuzzleCells
 import org.incava.sudokt.PuzzleFactory
 import org.incava.sudokt.Rule
+import org.junit.jupiter.api.Assertions.assertInstanceOf
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.MethodSource
 import kotlin.test.assertEquals
 import kotlin.test.assertIs
 import kotlin.test.assertNotNull
@@ -39,18 +42,6 @@ class RuleGeneratorTest {
         assertIs<T>(result)
     }
 
-    inline fun <reified T : Rule> generateAndRun(level: Int) {
-        val obj = RuleGenerator()
-        val rule = obj.generate(level, puzzleCells)
-        Qlog.info("rule", rule)
-        assertNotNull(rule)
-        assertIs<T>(rule)
-        val x = rule
-        val result = rule.run()
-        Qlog.info("result", result)
-        assertEquals(1, result.cells.size)
-    }
-
     @Test
     fun generateLevel0() = runIt<InferPossible>(0)
 
@@ -72,17 +63,27 @@ class RuleGeneratorTest {
         }
     }
 
-    @Test
-    fun generateLevel1() = runIt<NakedSingle>(1)
+    @ParameterizedTest
+    @MethodSource("generateLevelData")
+    fun generateLevel(data: Pair<Int, Class<out Rule>>) {
+        Qlog.info("data", data)
+        val obj = RuleGenerator()
+        val result = obj.generate(data.first, puzzleCells)
+        assertNotNull(result)
+        assertInstanceOf(data.second, result)
+    }
 
-    @Test
-    fun generateLevel2() = runIt<PrunePeers>(2)
-
-    @Test
-    fun generateLevel3() = runIt<NakedPair>(3)
-
-    @Test
-    fun generateLevel4() = runIt<HiddenPair>(4)
+    companion object {
+        @JvmStatic
+        fun generateLevelData() = listOf(
+            InferPossible::class.java,
+            NakedSingle::class.java,
+            HiddenSingle::class.java,
+            PrunePeers::class.java,
+            NakedPair::class.java,
+            HiddenPair::class.java
+        ).mapIndexed { index, cls -> Pair(index, cls) }
+    }
 
     @Test
     fun generateSingleCell() {

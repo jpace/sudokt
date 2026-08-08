@@ -16,8 +16,7 @@ class PrunePeersTest {
         unitCells.first().setPossibles((1 .. 4).toSet())
         unitCells.third().setPossibles((3 .. 7).toSet())
         unitCells.last().setPossibles((5 .. 8).toSet())
-        val cell = unitCells.second()
-        cell.number = 3
+        val cell = unitCells.second().also { it.number = 3 }
         val obj = PrunePeers(cell, unitCells, "row")
         val result = obj.run()
         assertEquals(listOf(unitCells.first(), unitCells.third()), result.cells)
@@ -31,8 +30,7 @@ class PrunePeersTest {
         val unitCells = (0 .. 8).map { Cell(it) }
         unitCells.first().setPossibles((1 .. 4).toSet())
         unitCells.last().setPossibles((1 .. 4).toSet())
-        val cell = unitCells.second()
-        cell.number = 5
+        val cell = unitCells.second().also { it.number = 5 }
         val obj = PrunePeers(cell, unitCells, "row")
         val result = obj.run()
         assertEquals(listOf(), result.cells)

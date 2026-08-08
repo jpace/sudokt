@@ -1,19 +1,21 @@
 package org.incava.sudokt.rules
 
-import org.incava.sudokt.Cell
+import org.incava.sudokt.impl.PuzzleData
+import org.incava.sudokt.test.CellsBuilder
 import org.junit.jupiter.api.assertAll
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class HiddenPairTest {
     @Test
-    fun runPossiblesNotSet() {
-        val defaultPossible = (0..8).toSet() - setOf(3, 4)
-        val unitCells = (0..8)
-            .map { id -> Cell(id).also { cell -> cell.setPossibles(defaultPossible) } }.toList()
+    fun `possibles not set`() {
+        val defaultPossible = PuzzleData.cellIndices.toSet() - setOf(3, 4)
+        val unitCells = CellsBuilder()
+            .withDefaultPossible(defaultPossible)
+            .newCells()
         // 3, 4 in common:
-        val x = unitCells[1].also { it.setPossibles(setOf(3, 4, 5, 6)) }
-        val y = unitCells[2].also { it.setPossibles(setOf(1, 2, 3, 4)) }
+        val x = unitCells[1].apply { setPossibles(setOf(3, 4, 5, 6)) }
+        val y = unitCells[2].apply { setPossibles(setOf(1, 2, 3, 4)) }
         val obj = HiddenPair(x, y, unitCells, "row")
         val result = obj.run()
         val executables = listOf(
@@ -32,13 +34,14 @@ class HiddenPairTest {
     }
 
     @Test
-    fun runWithPossiblesAlreadySet() {
-        val defaultPossible = (0..8).toSet() - setOf(3, 4)
-        val unitCells = (0..8)
-            .map { id -> Cell(id).also { cell -> cell.setPossibles(defaultPossible) } }.toList()
+    fun `possibles already set`() {
+        val defaultPossible = PuzzleData.cellIndices.toSet() - setOf(3, 4)
+        val unitCells = CellsBuilder()
+            .withDefaultPossible(defaultPossible)
+            .newCells()
         // 3, 4 in common:
-        val x = unitCells[1].also { it.setPossibles(setOf(3, 4)) }
-        val y = unitCells[2].also { it.setPossibles(setOf(1, 2, 3, 4)) }
+        val x = unitCells[1].apply { setPossibles(setOf(3, 4)) }
+        val y = unitCells[2].apply { setPossibles(setOf(1, 2, 3, 4)) }
         val obj = HiddenPair(x, y, unitCells, "row")
         val result = obj.run()
         val executables = listOf(

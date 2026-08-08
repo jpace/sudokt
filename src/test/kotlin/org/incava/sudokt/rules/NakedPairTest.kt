@@ -1,28 +1,24 @@
 package org.incava.sudokt.rules
 
-import org.incava.io.Qlog
-import org.incava.sudokt.Cell
+import org.incava.sudokt.impl.PuzzleData
+import org.incava.sudokt.test.CellsBuilder
 import org.junit.jupiter.api.assertAll
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class NakedPairTest {
     @Test
-    fun checkUnitCells() {
-        val defaultPossible = (0..8).toSet()
-        val unitCells = (0..8)
-            .map { id -> Cell(id).also { cell -> cell.setPossibles(defaultPossible) } }.toList()
-        // 3, 4 in common:
-        val x = unitCells[1].also { it.setPossibles(setOf(3, 4)) }
-        val y = unitCells[2].also { it.setPossibles(setOf(3, 4)) }
+    fun `with exact match`() {
+        val unitCells = CellsBuilder()
+            .withPossible(1, setOf(3, 4))
+            .withPossible(2, setOf(3, 4))
+            .newCells()
+        val x = unitCells[1]
+        val y = unitCells[2]
         val otherCells = unitCells - x - y
         val obj = NakedPair(x, y, unitCells, "row")
-        Qlog.info("obj", obj)
-        Qlog.info("unitCells", unitCells)
         val result = obj.run()
-        Qlog.info("unitCells", unitCells)
-        Qlog.info("result.description", result.description)
-        val expectedPossible = (0..8).toSet() - setOf(3, 4)
+        val expectedPossible = PuzzleData.cellIndices.toSet() - setOf(3, 4)
         val executables = listOf(
             { assertEquals(otherCells, result.cells) },
             {
@@ -40,17 +36,19 @@ class NakedPairTest {
     }
 
     @Test
-    fun run() {
-        val defaultPossible = (0..1)
-        val unitCells =
-            (0..8).map { id -> Cell(id).also { cell -> cell.setPossibles(defaultPossible.toSet()) } }.toList()
-        // 3, 4 in common:
-        val x = unitCells[1].also { it.setPossibles(setOf(3, 4)) }
-        val y = unitCells[2].also { it.setPossibles(setOf(3, 4)) }
-        val z = unitCells[3].also { it.setPossibles(setOf(1, 2, 3, 4)) }
+    fun `with subset match`() {
+        val defaultPossible = PuzzleData.cellIndices.toSet() - setOf(3, 4)
+        val unitCells = CellsBuilder()
+            .withDefaultPossible(defaultPossible)
+            .withPossible(1, setOf(3, 4))
+            .withPossible(2, setOf(3, 4))
+            .withPossible(3, setOf(1, 2, 3, 4))
+            .newCells()
+        val x = unitCells[1]
+        val y = unitCells[2]
+        val z = unitCells[3]
         val obj = NakedPair(x, y, unitCells, "row")
         val result = obj.run()
-        Qlog.info("result", result)
         assertEquals(listOf(z), result.cells)
         assertEquals(setOf(1, 2), z.possible.values)
         assertEquals(setOf(3, 4), unitCells[2].possible.values)

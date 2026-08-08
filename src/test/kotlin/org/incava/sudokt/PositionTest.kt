@@ -1,5 +1,6 @@
 package org.incava.sudokt
 
+import org.incava.io.Qlog
 import org.junit.jupiter.api.assertAll
 import kotlin.test.Test
 import kotlin.test.assertEquals
