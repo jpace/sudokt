@@ -77,9 +77,9 @@ class RuleGeneratorTest {
         @JvmStatic
         fun generateLevelData() = listOf(
             InferPossible::class.java,
+            PrunePeers::class.java,
             NakedSingle::class.java,
             HiddenSingle::class.java,
-            PrunePeers::class.java,
             NakedPair::class.java,
             HiddenPair::class.java
         ).mapIndexed { index, cls -> Pair(index, cls) }
@@ -104,5 +104,4 @@ class RuleGeneratorTest {
         assertNotNull(result)
         assertIs<HiddenPair>(result)
     }
-
 }

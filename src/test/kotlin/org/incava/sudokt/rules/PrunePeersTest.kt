@@ -1,40 +1,45 @@
 package org.incava.sudokt.rules
 
-import org.incava.sudokt.Cell
+import org.incava.sudokt.test.CellsBuilder
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 
 fun <T> Collection<T>.second(): T = this.elementAt(1)
 fun <T> Collection<T>.third(): T = this.elementAt(2)
 
 class PrunePeersTest {
     @Test
-    fun checkUnitCells() {
-        val unitCells = listOf(
-            Cell(0), Cell(1), Cell(2), Cell(3), Cell(4), Cell(5), Cell(6), Cell(7), Cell(8)
-        )
-        unitCells.first().setPossibles((1 .. 4).toSet())
-        unitCells.third().setPossibles((3 .. 7).toSet())
-        unitCells.last().setPossibles((5 .. 8).toSet())
-        val cell = unitCells.second().also { it.number = 3 }
-        val obj = PrunePeers(cell, unitCells, "row")
+    fun `with match`() {
+        val unitCells = CellsBuilder()
+            .withDefaultPossible((4 .. 9).toSet())
+            .withPossible(0, (1..3).toSet())
+            .withPossible(1, (3..5).toSet())
+            .withNumber(2, 3)
+            .newCells()
+        val a = unitCells[0]
+        val b = unitCells[1]
+        val c = unitCells[2]
+        val obj = PrunePeers(c, unitCells, "row")
         val result = obj.run()
-        assertEquals(listOf(unitCells.first(), unitCells.third()), result.cells)
-        assertEquals(setOf(1, 2, 4), unitCells.first().possible.values)
-        assertEquals(setOf(4, 5, 6, 7), unitCells.third().possible.values)
-        assertEquals((5..8).toSet(), unitCells.last().possible.values)
+        assertEquals(listOf(a, b), result.cells)
+        assertEquals(setOf(1, 2), a.possible.values)
+        assertEquals(setOf(4, 5), b.possible.values)
+        assertEquals("""
+            Remove Number from Possibles in Unit row
+            from cell 1,3 with the defined number 3,
+            remove that possibility from cell(s) 1,1, 1,2 in X's row
+        """.trimIndent(), result.description)
     }
 
     @Test
-    fun runWithoutUpdate() {
-        val unitCells = (0 .. 8).map { Cell(it) }
-        unitCells.first().setPossibles((1 .. 4).toSet())
-        unitCells.last().setPossibles((1 .. 4).toSet())
-        val cell = unitCells.second().also { it.number = 5 }
-        val obj = PrunePeers(cell, unitCells, "row")
+    fun `without match`() {
+        val unitCells = CellsBuilder()
+            .withDefaultPossible((4 .. 9).toSet())
+            .withNumber(2, 3)
+            .newCells()
+        val obj = PrunePeers(unitCells[2], unitCells, "row")
         val result = obj.run()
-        assertEquals(listOf(), result.cells)
-        assertEquals((1 .. 4).toSet(), unitCells.first().possible.values)
-        assertEquals((1 .. 4).toSet(), unitCells.last().possible.values)
+        assertFalse(result.updated)
     }
 }

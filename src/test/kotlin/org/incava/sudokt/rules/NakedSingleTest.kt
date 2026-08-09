@@ -15,7 +15,7 @@ class NakedSingleTest {
     }
 
     @Test
-    fun runWithNumberNotSetOnePossibility() {
+    fun `with number not set, one possibility`() {
         val arg = Cell(1).apply { setPossibles(setOf(4)) }
         val obj = NakedSingle(arg)
         val result = obj.run()
@@ -24,16 +24,11 @@ class NakedSingleTest {
     }
 
     @Test
-    fun runWithNumberNotSetTwoPossibilities() {
+    fun `with number not set, multiple possibilities`() {
         val arg = Cell(1).apply { setPossibles(setOf(4, 5)) }
         val obj = NakedSingle(arg)
         val result = obj.run()
         assertFalse(result.updated)
         assertEquals(emptyList<Cell>(), result.cells)
-    }
-
-    @Test
-    fun level() {
-        assertEquals(2, NakedSingle.LEVEL)
     }
 }

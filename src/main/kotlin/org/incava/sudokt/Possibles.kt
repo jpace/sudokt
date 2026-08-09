@@ -17,6 +17,8 @@ class Possibles {
 
     fun isEmpty() = values.isEmpty()
 
+    fun isNotEmpty() = values.isNotEmpty()
+
     fun intersect(other: Possibles) = this.values.intersect(other.values)
 
     fun replace(values: Set<Int>): Boolean {

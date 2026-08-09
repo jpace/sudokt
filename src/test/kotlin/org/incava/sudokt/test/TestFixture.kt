@@ -1,6 +1,5 @@
 package org.incava.sudokt.test
 
-import org.incava.sudokt.Cell
 import org.incava.sudokt.Puzzle
 import org.incava.sudokt.PuzzleCells
 import org.junit.jupiter.api.assertAll
@@ -37,13 +36,5 @@ object TestFixture {
             { assertEquals(listOf(3, null, null, 6, 8, null, null, null, 2), cells.inRow(7).map { it.number }) },
             { assertEquals(listOf(2, 7, null, 1, null, null, null, null, null), cells.inRow(8).map { it.number }) },
         )
-    }
-
-    fun createCell(id: Int, number: Int): Cell {
-        return Cell(id).also { it.number = number }
-    }
-
-    fun createCell(id: Int, possible: Set<Int>): Cell {
-        return Cell(id).apply { setPossibles(possible) }
     }
 }

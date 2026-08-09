@@ -19,17 +19,14 @@ class NakedPair(x: Cell, y: Cell, unitCells: List<Cell>, val unitType: String) :
         if (x.possible.size != 2 && y.possible.size != 2) {
             return RuleResult(false)
         } else if (x.possible == y.possible) {
-            val updatedCells = mutableListOf<Cell>()
-            unitCells.forEach { other ->
-                if (other != x && other != y) {
-                    if (other.removePossibles(x.possible.values)) {
-                        updatedCells += other
-                    }
+            unitCells
+                .filter { other ->
+                    other != x && other != y && other.removePossibles(x.possible.values)
+                }.takeIf { it.isNotEmpty() }
+                ?.let {
+                    return RuleResult(true, description(x.possible.values, it), it)
                 }
-            }
-            return RuleResult(true, description(x.possible.values, updatedCells), updatedCells)
-        } else {
-            return RuleResult(false)
         }
+        return RuleResult(false)
     }
 }

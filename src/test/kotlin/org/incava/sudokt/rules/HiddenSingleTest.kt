@@ -26,7 +26,7 @@ class HiddenSingleTest {
             {
                 assertEquals(
                     """
-                        Single Possible in Unit row
+                        Hidden Single in Unit row
                         in unit row 1 with number 3 appearing only once in the row,
                         set that number in the cell 1,2
                     """.trimIndent(), result.description

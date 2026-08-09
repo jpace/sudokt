@@ -1,6 +1,5 @@
 package org.incava.sudokt.rules
 
-import org.incava.io.Qlog
 import org.incava.sudokt.Cell
 import org.incava.sudokt.PuzzleCells
 import org.incava.sudokt.Rule
@@ -10,9 +9,9 @@ import kotlin.random.Random
 class RuleGenerator {
     val rules = listOf(
         InferPossible::class.java,
+        PrunePeers::class.java,
         NakedSingle::class.java,
         HiddenSingle::class.java,
-        PrunePeers::class.java,
         NakedPair::class.java,
         HiddenPair::class.java,
     )

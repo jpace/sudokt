@@ -12,33 +12,26 @@ class HiddenPair(x: Cell, y: Cell, unitCells: List<Cell>, val unitType: String) 
         are not possibilities in other cells, set the possibilities of $x and $y to only $matching
     """.trimIndent()
 
-    fun description(matching: Set<Int>) = description(x.position.toString(), y.position.toString(), unitType, matching.toString())
+    fun description(matching: Set<Int>) =
+        description(x.position.toString(), y.position.toString(), unitType, matching.toString())
 
     override fun run(): RuleResult {
-        if (x.possible.isEmpty() || y.possible.isEmpty()) {
-            return RuleResult(false)
-        } else {
+        if (x.possible.isNotEmpty() && y.possible.isNotEmpty()) {
             val inBoth = x.possible.intersect(y.possible)
-            return if (inBoth.size == 2) {
-                val updatedCells = mutableListOf<Cell>()
+            if (inBoth.size == 2) {
                 val inOthers = (unitCells - x - y).any { it.possible.values.intersect(inBoth).isNotEmpty() }
                 if (!inOthers) {
                     // the cell's possibilities might already be the same as inBoth
-                    listOf(x, y).forEach { cell ->
-                        if (cell.possible.values != inBoth) {
-                            cell.setPossibles(inBoth)
-                            updatedCells += cell
+                    listOf(x, y)
+                        .filter { it.possible.values != inBoth }
+                        .onEach { it.setPossibles(inBoth) }
+                        .takeIf { it.isNotEmpty() }
+                        ?.let {
+                            return RuleResult(true, description(inBoth), it)
                         }
-                    }
                 }
-                if (updatedCells.isEmpty()) {
-                    RuleResult(false)
-                } else {
-                    RuleResult(true, description(inBoth), updatedCells)
-                }
-            } else {
-                RuleResult(false)
             }
         }
+        return RuleResult(false)
     }
 }

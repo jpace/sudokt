@@ -7,6 +7,7 @@ import org.incava.sudokt.impl.PuzzleData
 class CellsBuilder {
     var defaultPossible: Set<Int> = PuzzleData.cellIndices.toSet()
     var possibles = mutableMapOf<Int, Set<Int>>()
+    var numbers = mutableMapOf<Int, Int>()
 
     fun withDefaultPossible(newValues: Set<Int>): CellsBuilder {
         defaultPossible = newValues
@@ -15,6 +16,11 @@ class CellsBuilder {
 
     fun withPossible(id: Int, newValues: Set<Int>): CellsBuilder {
         possibles[id] = newValues
+        return this
+    }
+
+    fun withNumber(id: Int, number: Int): CellsBuilder {
+        numbers[id] = number
         return this
     }
 
@@ -34,8 +40,12 @@ class CellsBuilder {
 
     fun newCells(): List<Cell> {
         return PuzzleData.cellIndices.map { id ->
-            val possible = possibles[id] ?: defaultPossible
-            newCell(id, possible)
+            if (numbers.containsKey(id)) {
+                newCell(id, numbers[id]!!)
+            } else {
+                val possible = possibles[id] ?: defaultPossible
+                newCell(id, possible)
+            }
         }.toList()
     }
 }

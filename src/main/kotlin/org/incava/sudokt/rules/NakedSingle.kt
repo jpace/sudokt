@@ -5,14 +5,12 @@ import org.incava.sudokt.RuleResult
 
 // level 1 rule
 class NakedSingle(cell: Cell) : RuleCell(cell) {
-    val level = LEVEL
-
     override fun description() = """
         for a cell X without a defined number and with only one possibility I, define the number as I and clear it as a possibility
     """.trimIndent()
 
     fun description(cell: Cell) = """
-        Single Possible
+        Naked Single
         for cell ${cell.position} without a defined number and with only one possibility ${cell.number}, define the number as ${cell.number}        
     """.trimIndent()
 
@@ -24,9 +22,5 @@ class NakedSingle(cell: Cell) : RuleCell(cell) {
         cell.setNumber(number)
         cell.removePossible(number)
         return RuleResult(true, description(cell), listOf(cell))
-    }
-
-    companion object {
-        const val LEVEL = 2
     }
 }
