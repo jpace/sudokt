@@ -5,6 +5,7 @@ import org.incava.sudokt.rules.InferPossible
 import org.incava.sudokt.rules.PrunePeers
 import org.incava.sudokt.rules.NakedSingle
 import org.incava.sudokt.test.TestFixture
+import org.incava.sudokt.unit.CellsUnit
 import org.incava.sudokt.view.PuzzleView1Line
 import kotlin.test.Test
 
@@ -59,7 +60,7 @@ class PuzzleTest {
     }
 
     fun removeFromPossiblesInUnit(cell: Cell, unitCells: List<Cell>, unitType: String): Boolean {
-        val rule = PrunePeers(cell, unitCells, unitType)
+        val rule = PrunePeers(cell, CellsUnit(unitCells, 1, unitType))
         return runRule(rule)
     }
 

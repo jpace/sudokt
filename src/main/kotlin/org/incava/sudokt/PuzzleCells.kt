@@ -1,9 +1,13 @@
 package org.incava.sudokt
 
-class PuzzleCells(private val elements: List<Cell>) {
-    val size: Int = elements.size
+import org.incava.sudokt.unit.CellsUnit
+import kotlin.random.Random
 
-    operator fun get(row: Int, column: Int) = elements.first { it.position == positionOf(row, column) }
+class PuzzleCells(private val cells: List<Cell>) {
+    val size: Int = cells.size
+    val unitTypes: List<String> = listOf("row", "column", "box")
+
+    operator fun get(row: Int, column: Int) = cells.first { it.position == positionOf(row, column) }
 
     fun inRow(row: Int): List<Cell> {
         return filterForPosition(row) { it.row }
@@ -18,10 +22,19 @@ class PuzzleCells(private val elements: List<Cell>) {
     }
 
     fun filterForPosition(value: Int, block: (Position) -> Int): List<Cell> {
-        return elements.filter { value == block(it.position) }
+        return cells.filter { value == block(it.position) }
     }
 
-    fun filter(block: (Cell) -> Boolean): List<Cell> {
-        return elements.filter { block(it) }
+    fun randomUnit(): CellsUnit {
+        val index = Random.nextInt(9)
+        val type = unitTypes.random()
+        val filter = when (type) {
+            "row" -> Position::row
+            "column" -> Position::column
+            "box" -> Position::box
+            else -> throw IllegalArgumentException("Unknown type: $type")
+        }
+        val unitCells = cells.filter { filter(it.position) == index }
+        return CellsUnit(unitCells, index + 1, type)
     }
 }

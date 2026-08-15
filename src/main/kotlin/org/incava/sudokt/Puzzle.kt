@@ -11,6 +11,10 @@ class Puzzle {
         }
     }
 
+    fun setCells(row: Int, columns: Map<Int, Int>) {
+        columns.forEach { (column, value) -> setCell(row, column, value) }
+    }
+
     fun setCell(row: Int, column: Int, number: Int) {
         val position = Util.rowColumnToPosition(row, column)
         setCell(position, number)
@@ -22,9 +26,5 @@ class Puzzle {
 
     fun isSolved() : Boolean {
         return cells.all { it.number != null }
-    }
-
-    fun setCells(row: Int, columns: Map<Int, Int>) {
-        columns.forEach { (column, value) -> setCell(row, column, value) }
     }
 }

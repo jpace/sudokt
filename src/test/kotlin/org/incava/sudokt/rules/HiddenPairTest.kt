@@ -2,6 +2,7 @@ package org.incava.sudokt.rules
 
 import org.incava.sudokt.impl.PuzzleData
 import org.incava.sudokt.test.CellsBuilder
+import org.incava.sudokt.unit.CellsUnit
 import org.junit.jupiter.api.assertAll
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -16,7 +17,7 @@ class HiddenPairTest {
         // 3, 4 in common:
         val x = unitCells[1].apply { setPossibles(setOf(3, 4, 5, 6)) }
         val y = unitCells[2].apply { setPossibles(setOf(1, 2, 3, 4)) }
-        val obj = HiddenPair(x, y, unitCells, "row")
+        val obj = HiddenPair(x, y, CellsUnit(unitCells, 1, "row"))
         val result = obj.run()
         val executables = listOf(
             { assertEquals(listOf(x, y), result.cells) },
@@ -42,7 +43,7 @@ class HiddenPairTest {
         // 3, 4 in common:
         val x = unitCells[1].apply { setPossibles(setOf(3, 4)) }
         val y = unitCells[2].apply { setPossibles(setOf(1, 2, 3, 4)) }
-        val obj = HiddenPair(x, y, unitCells, "row")
+        val obj = HiddenPair(x, y, CellsUnit(unitCells,  1, "row"))
         val result = obj.run()
         val executables = listOf(
             { assertEquals(listOf(y), result.cells) },
