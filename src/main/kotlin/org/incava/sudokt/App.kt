@@ -11,8 +11,8 @@ import org.incava.sudokt.rules.InferPossible
 import org.incava.sudokt.rules.PrunePeers
 import org.incava.sudokt.view.PuzzleView1Line
 
-class App {
-    val puzzle = PuzzleFactory.createFromString(Puzzles.fromGym)
+class App(name: String? = null) {
+    val puzzle = PuzzleFactory.createFromString(Puzzles.byName[name] ?: Puzzles.byName.keys.first())
     val view = PuzzleView1Line(puzzle, false, showNumber = true, showPossible = true)
 
     fun run() {
@@ -62,6 +62,7 @@ class App {
 }
 
 fun main(args: Array<String>) {
-    val app = App()
+    val name = args.firstOrNull { it.isNotEmpty() }
+    val app = App(name)
     app.run()
 }

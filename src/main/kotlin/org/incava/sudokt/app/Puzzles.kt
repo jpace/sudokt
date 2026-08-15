@@ -28,4 +28,9 @@ object Puzzles {
             || 3 |   |   || 6 | 8 |   ||   |   | 2 ||
             || 2 | 7 |   || 1 |   |   ||   |   |   ||
         """.trimIndent()
+
+    val byName = mapOf(
+        "easyOne" to easyOne,
+        "fromGym" to fromGym,
+    )
 }
